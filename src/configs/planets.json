@@ -1,0 +1,10 @@
+[
+  {"name": "Меркурий", "texture": "/textures/mercury.jpg", "radius": 0.2, "distance": 5, "speed": 0.5, "color": "#aaa9ad"},
+  {"name": "Венера", "texture": "/textures/venus.jpg", "radius": 0.3, "distance": 7, "speed": 0.4, "color": "#c2b280"},
+  {"name": "Земля", "texture": "/textures/earth.jpg", "radius": 0.35, "distance": 10, "speed": 0.3, "color": "#2e6fce"},
+  {"name": "Марс", "texture": "/textures/mars.jpg", "radius": 0.3, "distance": 13, "speed": 0.25, "color": "#b44b32"},
+  {"name": "Юпитер", "texture": "/textures/jupiter.jpg", "radius": 0.7, "distance": 17, "speed": 0.2, "color": "#d2b48c"},
+  {"name": "Сатурн", "texture": "/textures/saturn.jpg", "radius": 0.6, "distance": 21, "speed": 0.18, "color": "#f4e2c2"},
+  {"name": "Уран", "texture": "/textures/uranus.jpg", "radius": 0.5, "distance": 25, "speed": 0.15, "color": "#b0e0e6"},
+  {"name": "Нептун", "texture": "/textures/neptune.jpg", "radius": 0.5, "distance": 29, "speed": 0.13, "color": "#4169e1"}
+]
