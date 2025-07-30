@@ -5,8 +5,6 @@ import CAMERA_MODES from "../configs/cameraModes.js";
 
 const ANIMATION_DURATION_FOCUS = 1.0;
 const ANIMATION_DURATION_FINALIZE = 0.3;
-const ANIMATION_DURATION_FREE = 1.5;
-const ANIMATION_DURATION_FINALIZE_FREE = 0.5;
 
 const MIN_POLAR_ANGLE = 0.1;
 const MAX_POLAR_ANGLE = Math.PI - 0.1;
@@ -25,21 +23,35 @@ const DynamicCamera = ({
 	const animationTime = useRef(0);
 	const finalizing = useRef(false);
 	const isAnimating = useRef(false);
+	const freeInitialized = useRef(false);
 
-	// Инициализация анимации при смене режима
 	useEffect(() => {
 		animationTime.current = 0;
 		finalizing.current = false;
 
-		if (cameraMode === CAMERA_MODES.FOCUS && targetRef?.current)
-			isAnimating.current = true;
-		else if (cameraMode === CAMERA_MODES.FREE) {
-			isAnimating.current = true;
-			targetPosition.current.copy(defaultPosition);
-		}
-	}, [cameraMode, defaultPosition, targetRef]);
+		const controls = controlsRef.current;
 
-	// Функции для логики фокусного режима
+		if (cameraMode === CAMERA_MODES.FOCUS && targetRef?.current) {
+			isAnimating.current = true;
+			freeInitialized.current = false;
+			if (controls) {
+				applyFocusControlsSettings(controls);
+				controls.update();
+			}
+		} else if (cameraMode === CAMERA_MODES.FREE) {
+			isAnimating.current = false;
+			finalizing.current = false;
+			freeInitialized.current = true;
+
+			camera.position.copy(defaultPosition);
+			if (controls) {
+				controls.target.set(0, 0, 0);
+				applyFreeControlsSettings(controls)
+				controls.update();
+			}
+		}
+	}, [cameraMode, defaultPosition, targetRef, controlsRef, camera, zoomDistance.min, zoomDistance.max]);
+
 	const calculateFocusTargetPosition = (controls) => {
 		const targetPos = targetRef.current.position;
 		const azimuthalAngle = controls.getAzimuthalAngle();
@@ -48,8 +60,11 @@ const DynamicCamera = ({
 			MIN_POLAR_ANGLE,
 			MAX_POLAR_ANGLE
 		);
-		const desiredDistance = Math.max(zoomDistance.distance, zoomDistance.min);
-
+		const desiredDistance = THREE.MathUtils.clamp(
+			zoomDistance.distance,
+			zoomDistance.min,
+			zoomDistance.max
+		);
 		targetPosition.current.set(
 			targetPos.x + desiredDistance * Math.sin(polarAngle) * Math.sin(azimuthalAngle),
 			targetPos.y + desiredDistance * Math.cos(polarAngle),
@@ -99,51 +114,17 @@ const DynamicCamera = ({
 		controls.maxPolarAngle = MAX_POLAR_ANGLE;
 	};
 
-	// Функции для логики свободного режима
-	const animateFreeApproach = (delta, controls) => {
-		animationTime.current += delta;
-
-		camera.position.lerp(targetPosition.current, lerpFactor);
-		controls.target.lerp(new THREE.Vector3(0, 0, 0), lerpFactor);
-		controls.update();
-
-		if (
-			(animationTime.current > ANIMATION_DURATION_FREE ||
-				camera.position.distanceTo(targetPosition.current) < 0.05) &&
-			!finalizing.current
-		) {
-			finalizing.current = true;
-			animationTime.current = 0;
-		}
-	};
-
-	const finalizeFreePosition = (delta, controls) => {
-		animationTime.current += delta;
-
-		camera.position.lerp(targetPosition.current, lerpFactor * 4);
-		controls.target.lerp(new THREE.Vector3(0, 0, 0), lerpFactor * 4);
-		controls.update();
-
-		if (animationTime.current > ANIMATION_DURATION_FINALIZE_FREE) {
-			camera.position.copy(targetPosition.current);
-			controls.target.set(0, 0, 0);
-			finalizing.current = false;
-			isAnimating.current = false;
-		}
-	};
-
-	const setFreePositionDirectly = (controls) => {
-		camera.position.copy(targetPosition.current);
-		controls.target.set(0, 0, 0);
-		controls.enableZoom = true;
-		controls.enableRotate = true;
+	const applyFreeControlsSettings = (controls) => {
 		controls.minDistance = 10;
 		controls.maxDistance = 100;
 		controls.minPolarAngle = 0;
 		controls.maxPolarAngle = Math.PI;
+		controls.enableZoom = true;
+		controls.enableRotate = true;
+		controls.enablePan = true;
 	};
 
-	// вызов функций
+
 	useFrame((_, delta) => {
 		const controls = controlsRef.current;
 		if (!controls) return;
@@ -164,22 +145,10 @@ const DynamicCamera = ({
 				setFocusPositionDirectly(controls);
 			}
 
-			applyFocusControlsSettings(controls);
 			controls.update();
 		} else if (cameraMode === CAMERA_MODES.FREE) {
-			targetPosition.current.copy(defaultPosition);
-
-			controls.minDistance = 10;
-			controls.maxDistance = 100;
-
-			if (isAnimating.current)
-				animateFreeApproach(delta, controls);
-			else if (finalizing.current)
-				finalizeFreePosition(delta, controls);
-			else {
-				setFreePositionDirectly(controls);
-				controls.update();
-			}
+			if (!freeInitialized.current) return;
+			controls.update();
 		}
 	});
 
