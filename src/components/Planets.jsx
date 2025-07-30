@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from "react";
 import {useTexture} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
 import planetsConfig from "../configs/planets.json";
+import PlanetRings from "./PlanetRings.jsx";
 
 const Planet = ({planet, refCallback, shadows}) => {
   const meshRef = useRef();
@@ -38,6 +39,8 @@ const Planet = ({planet, refCallback, shadows}) => {
             roughness={0.8}
             metalness={0.1}
         />
+
+        {planet.ring?.enabled && <PlanetRings ring={planet.ring}/>}
       </mesh>
   );
 };

@@ -4,7 +4,16 @@
   {"name": "Земля", "texture": "/textures/earth.jpg", "radius": 0.35, "distance": 10, "speed": 0.3, "color": "#2e6fce"},
   {"name": "Марс", "texture": "/textures/mars.jpg", "radius": 0.3, "distance": 13, "speed": 0.25, "color": "#b44b32"},
   {"name": "Юпитер", "texture": "/textures/jupiter.jpg", "radius": 0.7, "distance": 17, "speed": 0.2, "color": "#d2b48c"},
-  {"name": "Сатурн", "texture": "/textures/saturn.jpg", "radius": 0.6, "distance": 21, "speed": 0.18, "color": "#f4e2c2"},
+  {"name": "Сатурн", "texture": "/textures/saturn.jpg", "radius": 0.6, "distance": 21, "speed": 0.18, "color": "#f4e2c2",
+    "ring": {
+      "enabled": true,
+      "texture": "/textures/saturn_rings.png",
+      "tiltDeg": 26.7,
+      "innerFactor": 1.45,
+      "outerFactor": 2.6,
+      "opacity": 0.9,
+      "segments": 128
+    }},
   {"name": "Уран", "texture": "/textures/uranus.jpg", "radius": 0.5, "distance": 25, "speed": 0.15, "color": "#b0e0e6"},
   {"name": "Нептун", "texture": "/textures/neptune.jpg", "radius": 0.5, "distance": 29, "speed": 0.13, "color": "#4169e1"}
 ]
