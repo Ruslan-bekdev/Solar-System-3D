@@ -7,8 +7,6 @@ import StarField from "./StarField.jsx";
 import {OrbitControls} from "@react-three/drei";
 import DynamicCamera from "./DynamicCamera.jsx";
 
-const defaultCameraPos = new THREE.Vector3(0, 50, 100);
-
 const SolarSystem = ({
 	                     shadows = true,
 	                     planetRefs,
@@ -18,6 +16,8 @@ const SolarSystem = ({
 	                     controlsRef,
 	                     cameraMode,
                      }) => {
+	const defaultCameraPos = new THREE.Vector3(0, 30, zoomDistance.distance);
+
 	useEffect(() => {
 		const handleWheel = (event) => {
 			if (!focusRef) return;

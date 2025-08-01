@@ -3,8 +3,7 @@ import styles from './components.module.less';
 import planetsConfig from '../configs/planets.json';
 import zoomMap from "../configs/zoomMap.json";
 import CAMERA_MODES from "../configs/cameraModes.js";
-
-const defaultZoom = {distance: 60, min: 10, max: 100};
+import defaultZoom from "../configs/defaultZoom.json";
 
 const ToggleButton = ({showControls, setShowControls}) => (
 	<button

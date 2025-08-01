@@ -1,11 +1,11 @@
 {
   "Солнце": {"distance": 8, "min": 4, "max": 16},
-  "Меркурий": {"distance": 2, "min": 1, "max": 5},
-  "Венера": {"distance": 2.5, "min": 1.2, "max": 6},
-  "Земля": {"distance": 3, "min": 1.5, "max": 7},
-  "Марс": {"distance": 2.8, "min": 1.4, "max": 6},
-  "Юпитер": {"distance": 6, "min": 3.5, "max": 12},
-  "Сатурн": {"distance": 5.5, "min": 3, "max": 11},
-  "Уран": {"distance": 4, "min": 2.2, "max": 8},
-  "Нептун": {"distance": 4, "min": 2.2, "max": 8}
+  "Меркурий": {"distance": 1, "min": 0.5, "max": 2.5},
+  "Венера": {"distance": 1.25, "min": 0.6, "max": 3},
+  "Земля": {"distance": 1.5, "min": 0.75, "max": 3.5},
+  "Марс": {"distance": 1.4, "min": 0.7, "max": 3},
+  "Юпитер": {"distance": 3, "min": 1.75, "max": 6},
+  "Сатурн": {"distance": 2.75, "min": 1.5, "max": 5.5},
+  "Уран": {"distance": 2, "min": 1.1, "max": 4},
+  "Нептун": {"distance": 2, "min": 1.1, "max": 4}
 }

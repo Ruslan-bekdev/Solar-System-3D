@@ -3,8 +3,8 @@ import {useEffect, useRef} from "react";
 import * as THREE from "three";
 import CAMERA_MODES from "../configs/cameraModes.js";
 
-const ANIMATION_DURATION_FOCUS = 1.0;
-const ANIMATION_DURATION_FINALIZE = 0.3;
+const ANIMATION_DURATION_FOCUS = 2.0;
+const ANIMATION_DURATION_FINALIZE = 1;
 
 const MIN_POLAR_ANGLE = 0.1;
 const MAX_POLAR_ANGLE = Math.PI - 0.1;
@@ -115,8 +115,8 @@ const DynamicCamera = ({
 	};
 
 	const applyFreeControlsSettings = (controls) => {
-		controls.minDistance = 10;
-		controls.maxDistance = 100;
+		controls.minDistance = zoomDistance.min;
+		controls.maxDistance = zoomDistance.max;
 		controls.minPolarAngle = 0;
 		controls.maxPolarAngle = Math.PI;
 		controls.enableZoom = true;

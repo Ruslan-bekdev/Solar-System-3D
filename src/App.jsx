@@ -25,7 +25,7 @@ const App = () => {
 		setFocusRef,
 		controlsRef,
 		cameraMode,
-		setCameraMode
+		setCameraMode,
 	};
 
 	useDisablePageZoom(true);
