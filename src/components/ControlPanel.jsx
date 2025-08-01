@@ -16,7 +16,7 @@ const ToggleButton = ({showControls, setShowControls}) => (
 		</button>
 		{showControls && (
 			<span className={styles.toggleHint}>
-				1-9 планеты, 0 свободно
+				Клавиши: 0-8,-+
 			</span>
 		)}
 	</div>
