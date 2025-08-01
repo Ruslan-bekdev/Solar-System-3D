@@ -5,9 +5,12 @@ import CAMERA_MODES from "../configs/cameraModes.js";
 
 const ANIMATION_DURATION_FOCUS = 2.0;
 const ANIMATION_DURATION_FINALIZE = 1;
+const ANIMATION_DURATION_FREE = 1.5;
 
 const MIN_POLAR_ANGLE = 0.1;
 const MAX_POLAR_ANGLE = Math.PI - 0.1;
+
+const easeOutQuad = t => t * (2 - t);
 
 const DynamicCamera = ({
 	                       targetRef,
@@ -24,6 +27,9 @@ const DynamicCamera = ({
 	const finalizing = useRef(false);
 	const isAnimating = useRef(false);
 	const freeInitialized = useRef(false);
+	const prevCameraMode = useRef(cameraMode);
+	const freeAnimStartPos = useRef(new THREE.Vector3());
+	const freeAnimStartTarget = useRef(new THREE.Vector3());
 
 	useEffect(() => {
 		animationTime.current = 0;
@@ -39,18 +45,28 @@ const DynamicCamera = ({
 				controls.update();
 			}
 		} else if (cameraMode === CAMERA_MODES.FREE) {
-			isAnimating.current = false;
-			finalizing.current = false;
-			freeInitialized.current = true;
+			if (prevCameraMode.current === CAMERA_MODES.FOCUS) {
+				isAnimating.current = true;
+				freeInitialized.current = false;
 
-			camera.position.copy(defaultPosition);
-			if (controls) {
-				controls.target.set(0, 0, 0);
-				applyFreeControlsSettings(controls)
-				controls.update();
+				freeAnimStartPos.current.copy(camera.position);
+				freeAnimStartTarget.current.copy(controls.target);
+			} else {
+				isAnimating.current = false;
+				finalizing.current = false;
+				freeInitialized.current = true;
+
+				camera.position.copy(defaultPosition);
+				if (controls) {
+					controls.target.set(0, 0, 0);
+					applyFreeControlsSettings(controls)
+					controls.update();
+				}
 			}
 		}
-	}, [cameraMode, defaultPosition, targetRef, controlsRef, camera, zoomDistance.min, zoomDistance.max]);
+
+		prevCameraMode.current = cameraMode;
+	}, [cameraMode, defaultPosition, targetRef, controlsRef, zoomDistance.min, zoomDistance.max]);
 
 	const calculateFocusTargetPosition = (controls) => {
 		const targetPos = targetRef.current.position;
@@ -100,6 +116,25 @@ const DynamicCamera = ({
 		}
 	};
 
+	const animateFreeTransition = (delta, controls) => {
+		animationTime.current += delta;
+		const rawT = Math.min(animationTime.current / ANIMATION_DURATION_FREE, 1);
+		const t = easeOutQuad(rawT);
+
+		camera.position.lerpVectors(freeAnimStartPos.current, defaultPosition, t);
+		controls.target.lerpVectors(freeAnimStartTarget.current, new THREE.Vector3(0, 0, 0), t);
+
+		if (rawT === 1) {
+			isAnimating.current = false;
+			freeInitialized.current = true;
+
+			camera.position.copy(defaultPosition);
+			controls.target.set(0, 0, 0);
+			applyFreeControlsSettings(controls);
+			controls.update();
+		}
+	};
+
 	const setFocusPositionDirectly = (controls) => {
 		camera.position.copy(targetPosition.current);
 		controls.target.copy(targetRef.current.position);
@@ -124,7 +159,6 @@ const DynamicCamera = ({
 		controls.enablePan = true;
 	};
 
-
 	useFrame((_, delta) => {
 		const controls = controlsRef.current;
 		if (!controls) return;
@@ -147,6 +181,9 @@ const DynamicCamera = ({
 
 			controls.update();
 		} else if (cameraMode === CAMERA_MODES.FREE) {
+			if (isAnimating.current) {
+				animateFreeTransition(delta, controls);
+			}
 			if (!freeInitialized.current) return;
 			controls.update();
 		}
