@@ -2,61 +2,77 @@ import React, {useEffect, useRef} from "react";
 import {useTexture} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
 import planetsConfig from "../configs/planets.json";
-import PlanetRings from "./PlanetRings.jsx";
+import Rings from "./features/Rings.jsx";
+import Trail from "./features/Trail.jsx";
 
-const Planet = ({planet, refCallback, shadows}) => {
-  const meshRef = useRef();
-  const texture = useTexture(planet.texture);
+const ROTATION_SPEED = 0.01
 
-  useFrame(() => {
-    if (!meshRef.current) return;
+const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
+	const meshRef = useRef();
+	const texture = useTexture(planet.texture);
 
-    meshRef.current.rotation.y += 0.01;
+	useEffect(() => {
+		if (refCallback && meshRef.current) {
+			refCallback(meshRef.current);}
+	}, [refCallback]);
 
-    const now = Date.now() / 10000;
-    const angle = (now * planet.speed * 2 * Math.PI) % (2 * Math.PI);
-    const x = Math.cos(angle) * planet.distance;
-    const z = Math.sin(angle) * planet.distance;
+	useFrame(() => {
+		if (!meshRef.current) return;
 
-    meshRef.current.position.set(x, 0, z);});
+		meshRef.current.rotation.y += ROTATION_SPEED;
+		const now = Date.now() / 10000;
+		const angle = ((now * planet.speed * 2 * Math.PI) + initialAngle) % (2 * Math.PI);
+		const x = Math.cos(angle) * planet.distance;
+		const z = Math.sin(angle) * planet.distance;
 
-  useEffect(() => {
-    if (refCallback && meshRef.current) {
-      refCallback(meshRef.current);}
-  }, [refCallback]);
+		meshRef.current.position.set(x, 0, z);
 
-  return (
-      <mesh
-          ref={meshRef}
-          castShadow={shadows}
-          receiveShadow={shadows}
-          scale={[planet.radius, planet.radius, planet.radius]}
-      >
-        <sphereGeometry args={[1, 32, 32]}/>
-        <meshStandardMaterial
-            map={texture}
-            color={planet.color}
-            roughness={0.8}
-            metalness={0.1}
-        />
+		if (planet.features?.fastRotation) {
+			meshRef.current.rotation.y += ROTATION_SPEED * planet.features.fastRotation;
+		}
+	});
 
-        {planet.ring?.enabled && <PlanetRings ring={planet.ring}/>}
-      </mesh>
-  );
+
+	return (
+		<group>
+			{planet.features?.trail && (
+				<Trail trail={planet.features.trail} meshRef={meshRef}/>
+			)}
+
+			<mesh
+				ref={meshRef}
+				castShadow={shadows}
+				receiveShadow={shadows}
+				scale={[planet.radius, planet.radius, planet.radius]}
+			>
+				<sphereGeometry args={[1, 32, 32]} />
+				<meshStandardMaterial
+					map={texture}
+					color={planet.color}
+					roughness={0.8}
+					metalness={0.1}
+				/>
+				{planet.features?.ring && (
+					<Rings ring={planet.features.ring}/>
+				)}
+			</mesh>
+		</group>
+	);
 };
 
 const RenderPlanets = ({planetRefs, shadows}) => (
-    <>
-      {planetsConfig.map((planet) => (
-          <Planet
-              key={planet.name}
-              planet={planet}
-              shadows={shadows}
-              refCallback={(mesh) => {
-                planetRefs.current[planet.name] = {current: mesh};}}
-          />
-      ))}
-    </>
+	<>
+		{planetsConfig.map((planet, i) => (
+			<Planet
+				key={planet.name}
+				planet={planet}
+				shadows={shadows}
+				initialAngle={(i/planetsConfig.length) * 2 * Math.PI}
+				refCallback={(mesh) => {
+					planetRefs.current[planet.name] = {current: mesh};}}
+			/>
+		))}
+	</>
 );
 
 export default RenderPlanets;

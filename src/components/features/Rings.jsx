@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 import {useTexture} from "@react-three/drei";
 import * as THREE from "three";
 
-const PlanetRings = ({ring}) => {
+const Rings = ({ring}) => {
 	const ringTexture = useTexture(ring.texture);
 	const tiltRad = useMemo(
 		() => THREE.MathUtils.degToRad(ring.tiltDeg - 90),
@@ -30,4 +30,4 @@ const PlanetRings = ({ring}) => {
 	);
 };
 
-export default PlanetRings;
+export default Rings;
