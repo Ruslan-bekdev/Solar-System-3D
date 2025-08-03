@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Trail} from "@react-three/drei";
 
 const RenderTrail = ({trail, meshRef}) => {
+	const {width, length, color, decay} = trail;
 	const [trailKey, setTrailKey] = React.useState(0);
 
 	useEffect(() => {
@@ -14,10 +15,10 @@ const RenderTrail = ({trail, meshRef}) => {
 		<Trail
 			key={trailKey}
 			target={meshRef}
-			width={trail.width}
-			length={trail.length}
-			color={trail.color}
-			decay={trail.decay}
+			width={width}
+			length={length}
+			color={color}
+			decay={decay}
 			attenuation={(t) => Math.pow(t, 5)}
 		/>
 	);

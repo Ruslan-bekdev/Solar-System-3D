@@ -4,6 +4,7 @@ import {useFrame} from "@react-three/fiber";
 import planetsConfig from "../configs/planets.json";
 import Rings from "./features/Rings.jsx";
 import Trail from "./features/Trail.jsx";
+import GlowingAura from "./features/GlowingAura.jsx";
 
 const ROTATION_SPEED = 0.01
 
@@ -19,13 +20,19 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 	useFrame(() => {
 		if (!meshRef.current) return;
 
-		meshRef.current.rotation.y += ROTATION_SPEED;
 		const now = Date.now() / 10000;
 		const angle = ((now * planet.speed * 2 * Math.PI) + initialAngle) % (2 * Math.PI);
 		const x = Math.cos(angle) * planet.distance;
 		const z = Math.sin(angle) * planet.distance;
 
 		meshRef.current.position.set(x, 0, z);
+
+		// features
+		if (planet.features?.retrograde) {
+			meshRef.current.rotation.y -= ROTATION_SPEED;
+		} else {
+			meshRef.current.rotation.y += ROTATION_SPEED;
+		}
 
 		if (planet.features?.fastRotation) {
 			meshRef.current.rotation.y += ROTATION_SPEED * planet.features.fastRotation;
@@ -35,10 +42,6 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 
 	return (
 		<group>
-			{planet.features?.trail && (
-				<Trail trail={planet.features.trail} meshRef={meshRef}/>
-			)}
-
 			<mesh
 				ref={meshRef}
 				castShadow={shadows}
@@ -55,7 +58,14 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 				{planet.features?.ring && (
 					<Rings ring={planet.features.ring}/>
 				)}
+				{planet.features?.glowingAura && (
+					<GlowingAura glowingAura={planet.features.glowingAura} planetRadius={planet.radius}/>
+				)}
 			</mesh>
+
+			{planet.features?.trail && (
+				<Trail trail={planet.features.trail} meshRef={meshRef}/>
+			)}
 		</group>
 	);
 };

@@ -3,10 +3,11 @@ import {useTexture} from "@react-three/drei";
 import * as THREE from "three";
 
 const Rings = ({ring}) => {
-	const ringTexture = useTexture(ring.texture);
+	const {texture, tiltDeg, innerFactor, outerFactor, opacity, segments} = ring;
+	const ringTexture = useTexture(texture);
 	const tiltRad = useMemo(
-		() => THREE.MathUtils.degToRad(ring.tiltDeg - 90),
-		[ring.tiltDeg]
+		() => THREE.MathUtils.degToRad(tiltDeg - 90),
+		[tiltDeg]
 	);
 	return (
 		<mesh
@@ -14,13 +15,13 @@ const Rings = ({ring}) => {
 			renderOrder={1}
 		>
 			<ringGeometry
-				args={[ring.innerFactor, ring.outerFactor, ring.segments ?? 128, 1]}
+				args={[innerFactor, outerFactor, segments ?? 128, 1]}
 			/>
 			<meshBasicMaterial
 				map={ringTexture}
 				alphaMap={ringTexture}
 				transparent={true}
-				opacity={ring.opacity ?? 0.9}
+				opacity={opacity ?? 0.9}
 				side={THREE.DoubleSide}
 				depthWrite={false}
 				polygonOffset={true}

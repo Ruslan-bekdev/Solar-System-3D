@@ -22,7 +22,22 @@
         "radius": 0.13,
         "distance": 7,
         "speed": 0.4,
-        "color": "#c2b280"
+        "color": "#c2b280",
+        "features": {
+            "retrograde": true,
+            "glow": {
+                "intensity": 1.2,
+                "color": "#fff5cc"
+            },
+            "glowingAura": {
+                "color": "#ff3300",
+                "scale": 8.2,
+                "pulseSpeed": 4,
+                "isAuraHide": false,
+                "auraPulseScale": 0.02,
+                "auraOpacity": {"base": 0.4, "pulse": 0.1}
+            }
+        }
     },
     {
         "name": "Земля",
