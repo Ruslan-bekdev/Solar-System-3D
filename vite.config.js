@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig({
 	root: './',
-	base: 'https://ruslan-bekdev.github.io/codenote/',
+	base: 'https://ruslan-bekdev.github.io/Solar-System-3D/',
 	build: {
 		outDir: 'dist',
 		sourcemap: true,
