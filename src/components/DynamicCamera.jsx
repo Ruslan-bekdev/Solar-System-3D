@@ -69,7 +69,9 @@ const DynamicCamera = ({
 	}, [cameraMode, defaultPosition, targetRef, controlsRef, zoomDistance.min, zoomDistance.max]);
 
 	const calculateFocusTargetPosition = (controls) => {
-		const targetPos = targetRef.current.position;
+		const worldPos = new THREE.Vector3();
+		targetRef.current.getWorldPosition(worldPos);
+
 		const azimuthalAngle = controls.getAzimuthalAngle();
 		const polarAngle = THREE.MathUtils.clamp(
 			controls.getPolarAngle(),
@@ -82,16 +84,19 @@ const DynamicCamera = ({
 			zoomDistance.max
 		);
 		targetPosition.current.set(
-			targetPos.x + desiredDistance * Math.sin(polarAngle) * Math.sin(azimuthalAngle),
-			targetPos.y + desiredDistance * Math.cos(polarAngle),
-			targetPos.z + desiredDistance * Math.sin(polarAngle) * Math.cos(azimuthalAngle)
+			worldPos.x + desiredDistance * Math.sin(polarAngle) * Math.sin(azimuthalAngle),
+			worldPos.y + desiredDistance * Math.cos(polarAngle),
+			worldPos.z + desiredDistance * Math.sin(polarAngle) * Math.cos(azimuthalAngle)
 		);
 	};
 
 	const animateFocusApproach = (delta, controls) => {
 		animationTime.current += delta;
 		camera.position.lerp(targetPosition.current, lerpFactor);
-		controls.target.lerp(targetRef.current.position, lerpFactor);
+
+		const worldTarget = new THREE.Vector3();
+		targetRef.current.getWorldPosition(worldTarget);
+		controls.target.lerp(worldTarget, lerpFactor);
 
 		if (
 			(animationTime.current > ANIMATION_DURATION_FOCUS ||
@@ -106,11 +111,18 @@ const DynamicCamera = ({
 	const finalizeFocusPosition = (delta, controls) => {
 		animationTime.current += delta;
 		camera.position.lerp(targetPosition.current, lerpFactor * 4);
-		controls.target.lerp(targetRef.current.position, lerpFactor * 4);
+
+		const worldTarget = new THREE.Vector3();
+		targetRef.current.getWorldPosition(worldTarget);
+		controls.target.lerp(worldTarget, lerpFactor * 4);
 
 		if (animationTime.current > ANIMATION_DURATION_FINALIZE) {
 			camera.position.copy(targetPosition.current);
-			controls.target.copy(targetRef.current.position);
+
+			const worldTargetFinal = new THREE.Vector3();
+			targetRef.current.getWorldPosition(worldTargetFinal);
+			controls.target.copy(worldTargetFinal);
+
 			finalizing.current = false;
 			isAnimating.current = false;
 		}
@@ -137,7 +149,10 @@ const DynamicCamera = ({
 
 	const setFocusPositionDirectly = (controls) => {
 		camera.position.copy(targetPosition.current);
-		controls.target.copy(targetRef.current.position);
+
+		const worldTarget = new THREE.Vector3();
+		targetRef.current.getWorldPosition(worldTarget);
+		controls.target.copy(worldTarget);
 	};
 
 	const applyFocusControlsSettings = (controls) => {
@@ -173,11 +188,22 @@ const DynamicCamera = ({
 
 			if (isAnimating.current) {
 				animateFocusApproach(delta, controls);
+
+				if (camera.position.distanceTo(targetPosition.current) < 0.5 && !finalizing.current) {
+					calculateFocusTargetPosition(controls);
+
+					camera.position.lerp(targetPosition.current, 0);
+
+					const worldTarget = new THREE.Vector3();
+					targetRef.current.getWorldPosition(worldTarget);
+					controls.target.lerp(worldTarget, 0);
+				}
 			} else if (finalizing.current) {
 				finalizeFocusPosition(delta, controls);
 			} else {
 				setFocusPositionDirectly(controls);
 			}
+
 
 			controls.update();
 		} else if (cameraMode === CAMERA_MODES.FREE) {

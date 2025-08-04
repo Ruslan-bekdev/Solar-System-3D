@@ -5,8 +5,10 @@ import planetsConfig from "../configs/planets.json";
 import Rings from "./features/Rings.jsx";
 import Trail from "./features/Trail.jsx";
 import GlowingAura from "./features/GlowingAura.jsx";
+import Clouds from "./features/Clouds.jsx";
+import Satellite from "./features/Satellite.jsx";
 
-const ROTATION_SPEED = 0.01
+export const ROTATION_SPEED = 0.01
 
 const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 	const meshRef = useRef();
@@ -61,10 +63,21 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 				{planet.features?.glowingAura && (
 					<GlowingAura glowingAura={planet.features.glowingAura} planetRadius={planet.radius}/>
 				)}
+				{planet.features?.clouds && (
+					<Clouds clouds={planet.features.clouds}/>
+				)}
 			</mesh>
 
 			{planet.features?.trail && (
 				<Trail trail={planet.features.trail} meshRef={meshRef}/>
+			)}
+
+			{planet.features?.satellite && (
+				<Satellite
+					satellite={planet.features.satellite}
+					planetRadius={planet.radius}
+					planetRef={meshRef}
+				/>
 			)}
 		</group>
 	);

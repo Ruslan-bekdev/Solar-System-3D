@@ -4,7 +4,7 @@
         "texture": "/textures/mercury.jpg",
         "radius": 0.1,
         "distance": 5,
-        "speed": 0.5,
+        "speed": 0.25,
         "color": "#aaa9ad",
         "features":{
             "fastRotation": 2,
@@ -21,7 +21,7 @@
         "texture": "/textures/venus.jpg",
         "radius": 0.13,
         "distance": 7,
-        "speed": 0.4,
+        "speed": 0.2,
         "color": "#c2b280",
         "features": {
             "retrograde": true,
@@ -44,15 +44,34 @@
         "texture": "/textures/earth.jpg",
         "radius": 0.14,
         "distance": 10,
-        "speed": 0.3,
-        "color": "#2e6fce"
+        "speed": 0.15,
+        "color": "#2e6fce",
+        "features": {
+            "clouds": {
+                "texture": "/textures/earth_clouds.jpg",
+                "speedMultiply": 0.5,
+                "scale": 1.01,
+                "opacity": 0.4
+            },
+            "satellite": {
+                "radiusMultiply": 2,
+                "scaleMultiply": 0.015,
+                "speed": 1,
+                "count": 15,
+                "glow":{
+                    "intensity": 1,
+                    "color": "#fff",
+                    "distance": 0.01
+                }
+            }
+        }
     },
     {
         "name": "Марс",
         "texture": "/textures/mars.jpg",
         "radius": 0.11,
         "distance": 13,
-        "speed": 0.25,
+        "speed": 0.125,
         "color": "#b44b32"
     },
     {
@@ -60,7 +79,7 @@
         "texture": "/textures/jupiter.jpg",
         "radius": 0.6,
         "distance": 17,
-        "speed": 0.2,
+        "speed": 0.1,
         "color": "#d2b48c"
     },
     {
@@ -68,7 +87,7 @@
         "texture": "/textures/saturn.jpg",
         "radius": 0.3,
         "distance": 21,
-        "speed": 0.18,
+        "speed": 0.09,
         "color": "#f4e2c2",
         "features":{
             "ring":{
@@ -86,7 +105,7 @@
         "texture": "/textures/uranus.jpg",
         "radius": 0.2,
         "distance": 25,
-        "speed": 0.15,
+        "speed": 0.075,
         "color": "#b0e0e6"
     },
     {
@@ -94,7 +113,7 @@
         "texture": "/textures/neptune.jpg",
         "radius": 0.2,
         "distance": 29,
-        "speed": 0.13,
+        "speed": 0.065,
         "color": "#4169e1"
     }
 ]
