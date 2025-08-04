@@ -10,8 +10,8 @@ const WIGGLE_AMPLITUDE = 0.03;
 const FLOAT_AMPLITUDE = 0.04;
 
 const Sun = forwardRef(({refCallback, shadows}, ref) => {
-    const texture = useTexture("/textures/sun.jpg");
-    const localRef = useRef();
+	const texture = useTexture(new URL("/textures/sun.jpg", import.meta.url).href);
+	const localRef = useRef();
     const finalRef = ref || localRef;
 
     useEffect(() => {

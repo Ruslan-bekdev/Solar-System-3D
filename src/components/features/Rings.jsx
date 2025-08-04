@@ -4,7 +4,8 @@ import * as THREE from "three";
 
 const Rings = ({ring}) => {
 	const {texture, tiltDeg, innerFactor, outerFactor, opacity, segments} = ring;
-	const ringTexture = useTexture(texture);
+	const basePath = import.meta.env.BASE_URL;
+	const ringTexture = useTexture(basePath + texture.replace(/^\//, ''));
 	const tiltRad = useMemo(
 		() => THREE.MathUtils.degToRad(tiltDeg - 90),
 		[tiltDeg]

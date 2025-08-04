@@ -12,7 +12,8 @@ export const ROTATION_SPEED = 0.01
 
 const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 	const meshRef = useRef();
-	const texture = useTexture(planet.texture);
+	const basePath = import.meta.env.BASE_URL;
+	const texture = useTexture(basePath + planet.texture.replace(/^\//, ''));
 
 	useEffect(() => {
 		if (refCallback && meshRef.current) {

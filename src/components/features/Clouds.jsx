@@ -6,7 +6,8 @@ import {ROTATION_SPEED} from "../Planets.jsx";
 
 const Clouds = ({clouds}) => {
 	const {texture, speedMultiply, scale, opacity} = clouds;
-	const cloudsTexture = useTexture(texture);
+	const basePath = import.meta.env.BASE_URL;
+	const cloudsTexture = useTexture(basePath + texture.replace(/^\//, ''));
 	const cloudRef = useRef();
 	const rotationSpeed = ROTATION_SPEED * speedMultiply
 
