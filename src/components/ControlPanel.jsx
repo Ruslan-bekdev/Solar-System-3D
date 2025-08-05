@@ -24,7 +24,7 @@ const ToggleButton = ({showControls, setShowControls}) => (
 
 const FreeButton = ({setFocusRef, setZoomDistance, setCameraMode}) => (
 	<button onClick={() => {
-		setFocusRef(null);
+		setFocusRef({ref: null, name: ''});
 		setZoomDistance(defaultZoom);
 		setCameraMode(CAMERA_MODES.FREE);
 	}}>
@@ -41,7 +41,8 @@ const ShadowToggleButton = ({shadows, setShadows}) => (
 const PlanetButtons = ({planetRefs, setFocusRef, setCameraMode, setZoomDistance}) => {
 	const handleFocusPlanet = (mesh, name) => {
 		if (!mesh) return;
-		setFocusRef(mesh);
+		mesh.current.name = name;
+		setFocusRef({name: name, ref:mesh});
 		setCameraMode(CAMERA_MODES.FOCUS);
 
 		const settings = zoomMap[name] || {distance: 5, min: 2, max: 10};
@@ -65,7 +66,7 @@ const PlanetButtons = ({planetRefs, setFocusRef, setCameraMode, setZoomDistance}
 };
 
 const ControlButtons = (props) => {
-	const { showControls} = props;
+	const {showControls} = props;
 
 	return (
 		<div className={`${styles.controlButtons} ${!showControls ? styles.hiddenButtons : ''}`}>
@@ -94,10 +95,10 @@ const ControlPanel = (props) => {
 		};
 
 		const onKeyDown = (event) => {
-			const { key } = event;
+			const {key} = event;
 
 			if (key === '0') {
-				setFocusRef(null);
+				setFocusRef({ref: null, name: ''});
 				setZoomDistance(defaultZoom);
 				setCameraMode(CAMERA_MODES.FREE);
 				return;
@@ -121,7 +122,7 @@ const ControlPanel = (props) => {
 				const mesh = planetRefs.current[planet.name];
 				if (!mesh) return;
 
-				setFocusRef(mesh);
+				setFocusRef({ref:mesh, name:planet.name});
 				setCameraMode(CAMERA_MODES.FOCUS);
 				const settings = zoomMap[planet.name] || { distance: 5, min: 2, max: 10 };
 				setZoomDistance(settings);

@@ -7,13 +7,15 @@ import Trail from "./features/Trail.jsx";
 import GlowingAura from "./features/GlowingAura.jsx";
 import Atmosphere from "./features/Atmosphere.jsx";
 import Satellite from "./features/Satellite.jsx";
+import CAMERA_MODES from "../configs/cameraModes.js";
 
 export const ROTATION_SPEED = 0.01
 
-const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
+const Planet = ({planet, refCallback, shadows, initialAngle = 0, focusRefName, cameraMode}) => {
 	const meshRef = useRef();
 	const basePath = import.meta.env.BASE_URL;
 	const texture = useTexture(basePath + planet.texture.replace(/^\//, ''));
+	const isFocused = focusRefName === planet.name && cameraMode === CAMERA_MODES.FOCUS;
 
 	useEffect(() => {
 		if (refCallback && meshRef.current) {
@@ -31,14 +33,16 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 		meshRef.current.position.set(x, 0, z);
 
 		// features
-		if (planet.features?.retrograde) {
-			meshRef.current.rotation.y -= ROTATION_SPEED;
-		} else {
-			meshRef.current.rotation.y += ROTATION_SPEED;
-		}
+		if (isFocused){
+			if (planet.features?.retrograde) {
+				meshRef.current.rotation.y -= ROTATION_SPEED;
+			} else {
+				meshRef.current.rotation.y += ROTATION_SPEED;
+			}
 
-		if (planet.features?.fastRotation) {
-			meshRef.current.rotation.y += ROTATION_SPEED * planet.features.fastRotation;
+			if (planet.features?.fastRotation) {
+				meshRef.current.rotation.y += ROTATION_SPEED * planet.features.fastRotation;
+			}
 		}
 	});
 
@@ -58,33 +62,46 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 					roughness={0.8}
 					metalness={0.1}
 				/>
-				{planet.features?.ring && (
+
+				{planet.features?.ring &&(
 					<Rings ring={planet.features.ring}/>
 				)}
-				{planet.features?.glowingAura && (
-					<GlowingAura glowingAura={planet.features.glowingAura} planetRadius={planet.radius}/>
+				{planet.features?.glowingAura &&(
+					<GlowingAura
+						glowingAura={planet.features.glowingAura}
+						planetRadius={planet.radius}
+						isFocused={isFocused}
+					/>
 				)}
-				{planet.features?.atmosphere && (
-					<Atmosphere atmosphere={planet.features.atmosphere}/>
+				{planet.features?.atmosphere &&(
+					<Atmosphere
+						atmosphere={planet.features.atmosphere}
+						isFocused={isFocused}
+					/>
 				)}
 			</mesh>
 
-			{planet.features?.trail && (
-				<Trail trail={planet.features.trail} meshRef={meshRef}/>
+			{planet.features?.trail &&(
+				<Trail
+					trail={planet.features.trail}
+					meshRef={meshRef}
+					isFocused={isFocused}
+				/>
 			)}
 
-			{planet.features?.satellite && (
+			{planet.features?.satellite &&(
 				<Satellite
 					satellite={planet.features.satellite}
 					planetRadius={planet.radius}
 					planetRef={meshRef}
+					isFocused={isFocused}
 				/>
 			)}
 		</group>
 	);
 };
 
-const RenderPlanets = ({planetRefs, shadows}) => (
+const RenderPlanets = ({planetRefs, shadows, focusRefName, cameraMode}) => (
 	<>
 		{planetsConfig.map((planet, i) => (
 			<Planet
@@ -93,7 +110,10 @@ const RenderPlanets = ({planetRefs, shadows}) => (
 				shadows={shadows}
 				initialAngle={(i/planetsConfig.length) * 2 * Math.PI}
 				refCallback={(mesh) => {
-					planetRefs.current[planet.name] = {current: mesh};}}
+					planetRefs.current[planet.name] = {current: mesh};
+				}}
+				focusRefName={focusRefName}
+				cameraMode={cameraMode}
 			/>
 		))}
 	</>

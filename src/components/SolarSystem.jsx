@@ -20,7 +20,7 @@ const SolarSystem = ({
 
 	useEffect(() => {
 		const handleWheel = (event) => {
-			if (!focusRef) return;
+			if (!focusRef.ref) return;
 
 			event.preventDefault();
 			let delta = event.deltaY * 0.01;
@@ -33,7 +33,7 @@ const SolarSystem = ({
 
 		window.addEventListener("wheel", handleWheel, {passive: false});
 		return () => window.removeEventListener("wheel", handleWheel);
-	}, [zoomDistance, setZoomDistance, focusRef]);
+	}, [zoomDistance, setZoomDistance, focusRef.ref]);
 
 	return (
 		<Canvas camera={{position: [0, 20, 60], fov: 60}} shadows>
@@ -51,12 +51,12 @@ const SolarSystem = ({
 			)}
 
 			<Sun refCallback={(ref) => (planetRefs.current["Sun"] = ref)} shadows={shadows}/>
-			<Planets planetRefs={planetRefs} shadows={shadows}/>
+			<Planets planetRefs={planetRefs} shadows={shadows} focusRefName={focusRef.name} cameraMode={cameraMode}/>
 			<StarField/>
 			<OrbitControls ref={controlsRef} makeDefault/>
 
 			<DynamicCamera
-				targetRef={focusRef}
+				targetRef={focusRef.ref}
 				controlsRef={controlsRef}
 				zoomDistance={zoomDistance}
 				defaultPosition={defaultCameraPos}

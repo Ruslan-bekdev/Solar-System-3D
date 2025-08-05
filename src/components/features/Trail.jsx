@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Trail} from "@react-three/drei";
 
-const RenderTrail = ({trail, meshRef}) => {
+const RenderTrail = ({trail, meshRef, isFocused}) => {
 	const {width, length, color, decay} = trail;
 	const [trailKey, setTrailKey] = React.useState(0);
 
@@ -20,6 +20,7 @@ const RenderTrail = ({trail, meshRef}) => {
 			color={color}
 			decay={decay}
 			attenuation={(t) => Math.pow(t, 5)}
+			visible={isFocused}
 		/>
 	);
 };

@@ -4,7 +4,7 @@ import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
 import {ROTATION_SPEED} from "../Planets.jsx";
 
-const Atmosphere = ({atmosphere}) => {
+const Atmosphere = ({atmosphere, isFocused}) => {
 	const {texture, speedMultiply, scale, opacity} = atmosphere;
 	const basePath = import.meta.env.BASE_URL;
 	const cloudsTexture = useTexture(basePath + texture.replace(/^\//, ''));
@@ -12,14 +12,14 @@ const Atmosphere = ({atmosphere}) => {
 	const rotationSpeed = ROTATION_SPEED * speedMultiply
 
 	useFrame(() => {
-		if (cloudRef.current) {
+		if (cloudRef.current || !isFocused) {
 			cloudRef.current.rotation.y += rotationSpeed;
 		}
 	});
 
 
 	return (
-		<mesh ref={cloudRef} scale={scale}>
+		<mesh ref={cloudRef} scale={scale} visible={isFocused}>
 			<sphereGeometry args={[1, 32, 32]} />
 			<meshStandardMaterial
 				map={cloudsTexture}

@@ -9,7 +9,7 @@ import useDisablePageZoom from "./hooks/useDisablePageZoom.js";
 const App = () => {
 	const [shadows, setShadows] = useState(true);
 	const [zoomDistance, setZoomDistance] = useState(defaultZoom);
-	const [focusRef, setFocusRef] = useState(null);
+	const [focusRef, setFocusRef] = useState({ref: null, name: ''});
 	const [cameraMode, setCameraMode] = useState(CAMERA_MODES.FREE);
 
 	const planetRefs = useRef({});

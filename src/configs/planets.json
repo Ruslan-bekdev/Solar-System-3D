@@ -14,7 +14,8 @@
                 "length": 90,
                 "decay": 2
             }
-        }
+        },
+        "isFocused": "false"
     },
     {
         "name": "Венера",
@@ -37,7 +38,8 @@
                 "auraPulseScale": 0.02,
                 "auraOpacity": {"base": 0.4, "pulse": 0.1}
             }
-        }
+        },
+        "isFocused": "false"
     },
     {
         "name": "Земля",
@@ -64,7 +66,8 @@
                     "distance": 0.01
                 }
             }
-        }
+        },
+        "isFocused": "false"
     },
     {
         "name": "Марс",
@@ -91,7 +94,8 @@
                 "scale": 1.01,
                 "opacity": 0.25
             }
-        }
+        },
+        "isFocused": "false"
     },
     {
         "name": "Юпитер",
@@ -99,7 +103,8 @@
         "radius": 0.6,
         "distance": 17,
         "speed": 0.1,
-        "color": "#d2b48c"
+        "color": "#d2b48c",
+        "isFocused": "false"
     },
     {
         "name": "Сатурн",
@@ -117,7 +122,8 @@
                 "opacity": 0.9,
                 "segments": 128
             }
-        }
+        },
+        "isFocused": "false"
     },
     {
         "name": "Уран",
@@ -125,7 +131,8 @@
         "radius": 0.2,
         "distance": 25,
         "speed": 0.075,
-        "color": "#b0e0e6"
+        "color": "#b0e0e6",
+        "isFocused": "false"
     },
     {
         "name": "Нептун",
@@ -133,6 +140,7 @@
         "radius": 0.2,
         "distance": 29,
         "speed": 0.065,
-        "color": "#4169e1"
+        "color": "#4169e1",
+        "isFocused": "false"
     }
 ]

@@ -2,13 +2,13 @@ import React, {useRef} from "react";
 import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
 
-const GlowingAura = ({glowingAura, planetRadius}) => {
+const GlowingAura = ({glowingAura, planetRadius, isFocused}) => {
 	const {color, scale, pulseSpeed, isAuraHide, auraPulseScale, auraOpacity} = glowingAura;
 	const glowRef = useRef();
 	const baseScale = planetRadius * scale;
 
 	useFrame(({clock}) => {
-		if (!glowRef.current) return;
+		if (!glowRef.current || !isFocused) return;
 		const time = clock.getElapsedTime();
 		const scalePulse = isAuraHide ?0.9 :1 + auraPulseScale * Math.sin(time * pulseSpeed);
 

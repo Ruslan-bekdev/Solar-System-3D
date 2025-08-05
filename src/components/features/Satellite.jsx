@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useMemo, useRef} from "react";
 import {useFrame} from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -10,15 +10,16 @@ const Satellite = ({
 	                   radiusOffset,
 	                   orbitInclinationDeg,
 	                   reverseOrbit,
-	                   speed
+	                   speed,
+	                   isFocused
                    }) => {
 	const {radiusMultiply, scaleMultiply, glow} = satellite;
 	const satelliteRef = useRef();
 
 	const orbitInclinationRad = THREE.MathUtils.degToRad(orbitInclinationDeg);
 
-	useFrame(({ clock }) => {
-		if (!satelliteRef.current || !planetRef.current) return;
+	useFrame(({clock}) => {
+		if (!satelliteRef.current || !planetRef.current || !isFocused) return;
 
 		const time = clock.getElapsedTime();
 		const baseRadius = planetRadius * radiusMultiply + radiusOffset;
@@ -42,7 +43,11 @@ const Satellite = ({
 	});
 
 	return (
-		<group ref={satelliteRef} scale={[scaleMultiply, scaleMultiply, scaleMultiply]}>
+		<group
+			ref={satelliteRef}
+			scale={[scaleMultiply, scaleMultiply, scaleMultiply]}
+			visible={isFocused}
+		>
 			<mesh>
 				<cylinderGeometry args={[0.05, 0.05, 0.2, 16]} />
 				<meshStandardMaterial color="gray" />
@@ -74,39 +79,31 @@ const Satellite = ({
 	);
 };
 
-const RenderSatellite = ({satellite, planetRadius, planetRef}) => {
-	if (!satellite?.count || satellite.count <= 1) {
-		return (
-			<SingleSatellite
-				satellite={satellite}
-				planetRadius={planetRadius}
-				planetRef={planetRef}
-			/>
-		);
-	}
+const RenderSatellite = ({satellite, planetRadius, planetRef, isFocused}) => {
+	const satelliteParams = useMemo(() => {
+		return Array.from({ length: satellite.count }).map((_, i) => {
+			return {
+				angleOffset: (2 * Math.PI * i) / satellite.count,
+				radiusOffset: (Math.random() - 0.5) * 0.2,
+				orbitInclinationDeg: (Math.random() - 0.5) * 60,
+				reverseOrbit: Math.random() > 0.5 ? 1 : -1,
+				speed: satellite.speed * (0.8 + Math.random() * 0.4),
+			};
+		});
+	}, []);
 
 	return (
 		<>
-			{Array.from({length: satellite.count}).map((_, i) => {
-				const angleOffset = (2 * Math.PI * i) / satellite.count;
-				const radiusOffset = (Math.random() - 0.5) * 0.2;
-				const orbitInclinationDeg = (Math.random() - 0.5) * 60;
-				const reverseOrbit = Math.random() > 0.5 ? 1 : -1;
-				const speed = satellite.speed * (0.8 + Math.random() * 0.4);
-				return (
-					<Satellite
-						key={i}
-						satellite={satellite}
-						planetRadius={planetRadius}
-						planetRef={planetRef}
-						angleOffset={angleOffset}
-						radiusOffset={radiusOffset}
-						orbitInclinationDeg={orbitInclinationDeg}
-						reverseOrbit={reverseOrbit}
-						speed={speed}
-					/>
-				);
-			})}
+			{satelliteParams.map((params, i) => (
+				<Satellite
+					key={i}
+					satellite={satellite}
+					planetRadius={planetRadius}
+					planetRef={planetRef}
+					{...params}
+					isFocused={isFocused}
+				/>
+			))}
 		</>
 	);
 };
