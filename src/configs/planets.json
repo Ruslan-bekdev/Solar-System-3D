@@ -47,7 +47,7 @@
         "speed": 0.15,
         "color": "#2e6fce",
         "features": {
-            "clouds": {
+            "atmosphere": {
                 "texture": "/textures/earth_clouds.jpg",
                 "speedMultiply": 0.5,
                 "scale": 1.01,
@@ -72,7 +72,26 @@
         "radius": 0.11,
         "distance": 13,
         "speed": 0.125,
-        "color": "#b44b32"
+        "color": "#b44b32",
+        "features": {
+            "glowingAura": {
+                "color": "#ff8844",
+                "scale": 9.3,
+                "pulseSpeed": 2.5,
+                "isAuraHide": false,
+                "auraPulseScale": 0.015,
+                "auraOpacity": {
+                    "base": 0.12,
+                    "pulse": 0.05
+                }
+            },
+            "atmosphere": {
+                "texture": "/textures/mars_dust.jpg",
+                "speedMultiply": 0.5,
+                "scale": 1.01,
+                "opacity": 0.25
+            }
+        }
     },
     {
         "name": "Юпитер",

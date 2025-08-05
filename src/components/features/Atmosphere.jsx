@@ -4,8 +4,8 @@ import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
 import {ROTATION_SPEED} from "../Planets.jsx";
 
-const Clouds = ({clouds}) => {
-	const {texture, speedMultiply, scale, opacity} = clouds;
+const Atmosphere = ({atmosphere}) => {
+	const {texture, speedMultiply, scale, opacity} = atmosphere;
 	const basePath = import.meta.env.BASE_URL;
 	const cloudsTexture = useTexture(basePath + texture.replace(/^\//, ''));
 	const cloudRef = useRef();
@@ -32,4 +32,4 @@ const Clouds = ({clouds}) => {
 	);
 };
 
-export default Clouds;
+export default Atmosphere;

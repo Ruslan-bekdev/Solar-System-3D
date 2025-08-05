@@ -39,7 +39,6 @@ const Satellite = ({
 
 		satelliteRef.current.position.copy(pos);
 		satelliteRef.current.rotation.y += 0.02;
-		// satelliteRef.current.lookAt(planetRef.current.position);
 	});
 
 	return (

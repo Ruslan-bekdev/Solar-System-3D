@@ -5,7 +5,7 @@ import planetsConfig from "../configs/planets.json";
 import Rings from "./features/Rings.jsx";
 import Trail from "./features/Trail.jsx";
 import GlowingAura from "./features/GlowingAura.jsx";
-import Clouds from "./features/Clouds.jsx";
+import Atmosphere from "./features/Atmosphere.jsx";
 import Satellite from "./features/Satellite.jsx";
 
 export const ROTATION_SPEED = 0.01
@@ -64,8 +64,8 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0}) => {
 				{planet.features?.glowingAura && (
 					<GlowingAura glowingAura={planet.features.glowingAura} planetRadius={planet.radius}/>
 				)}
-				{planet.features?.clouds && (
-					<Clouds clouds={planet.features.clouds}/>
+				{planet.features?.atmosphere && (
+					<Atmosphere atmosphere={planet.features.atmosphere}/>
 				)}
 			</mesh>
 
