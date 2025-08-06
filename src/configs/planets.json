@@ -6,6 +6,7 @@
         "distance": 5,
         "speed": 0.25,
         "color": "#aaa9ad",
+        "tilt": 0.03,
         "features":{
             "fastRotation": 2,
             "trail":{
@@ -24,8 +25,8 @@
         "distance": 7,
         "speed": 0.2,
         "color": "#c2b280",
+        "tilt": 177.4,
         "features": {
-            "retrograde": true,
             "glow": {
                 "intensity": 1.2,
                 "color": "#fff5cc"
@@ -48,6 +49,7 @@
         "distance": 10,
         "speed": 0.15,
         "color": "#2e6fce",
+        "tilt": 23.44,
         "features": {
             "atmosphere": {
                 "texture": "/textures/earth_clouds.jpg",
@@ -76,6 +78,7 @@
         "distance": 13,
         "speed": 0.125,
         "color": "#b44b32",
+        "tilt": 25.19,
         "features": {
             "glowingAura": {
                 "color": "#ff8844",
@@ -104,6 +107,15 @@
         "distance": 17,
         "speed": 0.1,
         "color": "#d2b48c",
+        "tilt": 3.3,
+        "features": {
+            "atmosphere": {
+                "texture": "/textures/jupiter.jpg",
+                "speedMultiply": -0.4,
+                "scale": 1.01,
+                "opacity": 0.4
+            }
+        },
         "isFocused": "false"
     },
     {
@@ -113,10 +125,11 @@
         "distance": 21,
         "speed": 0.09,
         "color": "#f4e2c2",
+        "tilt": 26.7,
         "features":{
             "ring":{
                 "texture": "/textures/saturn_rings.png",
-                "tiltDeg": 26.7,
+                "tiltDeg": 7,
                 "innerFactor": 1.45,
                 "outerFactor": 2.6,
                 "opacity": 0.9,
@@ -132,6 +145,17 @@
         "distance": 25,
         "speed": 0.075,
         "color": "#b0e0e6",
+        "tilt": 97.77,
+        "features":{
+            "ring":{
+                "texture": "/textures/uranus_rings.png",
+                "tiltDeg": 7,
+                "innerFactor": 0.45,
+                "outerFactor": 2.6,
+                "opacity": 0.9,
+                "segments": 128
+            }
+        },
         "isFocused": "false"
     },
     {
@@ -141,6 +165,20 @@
         "distance": 29,
         "speed": 0.065,
         "color": "#4169e1",
+        "tilt": 28.32,
+        "features":{
+            "fluidLike":{
+                "wiggleAmplitude": 0.01,
+                "wiggleFrequency": 3,
+                "floatAmplitude": 0.04,
+                "floatFrequencyX": 5,
+                "floatFrequencyY": 4
+            },
+            "glossiness": {
+                "metalness": 0.3,
+                "roughness": 0.5
+            }
+        },
         "isFocused": "false"
     }
 ]

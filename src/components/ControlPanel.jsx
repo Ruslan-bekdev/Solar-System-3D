@@ -109,7 +109,7 @@ const ControlPanel = (props) => {
 				return;
 			}
 
-			if (key === '=') {
+			if (key === '=' || key === '+') {
 				setShadows(true);
 				return;
 			}
