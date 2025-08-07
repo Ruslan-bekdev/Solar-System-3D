@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import * as THREE from "three";
 import {Canvas} from "@react-three/fiber";
 import Sun from "./Sun.jsx";
 import Planets from "./Planets.jsx";
 import StarField from "./StarField.jsx";
 import {OrbitControls} from "@react-three/drei";
-import DynamicCamera from "./DynamicCamera.jsx";
+import DynamicCamera, {PRELOADER_ANIMATION_DURATION} from "./DynamicCamera.jsx";
 
 const SolarSystem = ({
 	                     shadows = true,
@@ -17,6 +17,12 @@ const SolarSystem = ({
 	                     cameraMode,
                      }) => {
 	const defaultCameraPos = new THREE.Vector3(0, 30, zoomDistance.distance);
+	const [isReady, setIsReady] = useState(false);
+
+	useEffect(() => {
+		const timer = setTimeout(() => setIsReady(true), PRELOADER_ANIMATION_DURATION*250);
+		return () => clearTimeout(timer);
+	}, []);
 
 	useEffect(() => {
 		const handleWheel = (event) => {
@@ -49,9 +55,12 @@ const SolarSystem = ({
 					shadow-mapSize-height={2048}
 				/>
 			)}
-
 			<Sun refCallback={(ref) => (planetRefs.current["Sun"] = ref)} shadows={shadows}/>
-			<Planets planetRefs={planetRefs} shadows={shadows} focusRefName={focusRef.name} cameraMode={cameraMode}/>
+			{isReady && (
+				<>
+					<Planets planetRefs={planetRefs} shadows={shadows} focusRefName={focusRef.name} cameraMode={cameraMode}/>
+				</>
+			)}
 			<StarField/>
 			<OrbitControls ref={controlsRef} makeDefault/>
 

@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "deploy": "gh-pages -d dist",
+        "deploy": "gh-pages -d dist --repo=https://github.com/Ruslan-bekdev/Solar-System-3D.git",
         "predeploy": "npm run build",
         "build": "vite build",
         "lint": "eslint .",

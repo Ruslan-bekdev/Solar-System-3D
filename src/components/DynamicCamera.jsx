@@ -10,7 +10,8 @@ const ANIMATION_DURATION_FREE = 1.5;
 const MIN_POLAR_ANGLE = 0.1;
 const MAX_POLAR_ANGLE = Math.PI - 0.1;
 
-const ANIMATION_DURATION_INITIAL = 5;
+export const PRELOADER_ANIMATION_DURATION = 5;
+export const PRELOADER_ANIMATION_POSITION = 4500;
 
 const easeOutQuad = t => t * (2 - t);
 const easeInOutQuad = t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
@@ -40,14 +41,14 @@ const DynamicCamera = ({
 
 	useEffect(() => {
 		if (firstLoadAnimation.current) {
-			firstLoadStartPos.current.set(0, 0, 4500);
+			firstLoadStartPos.current.set(0, 0, PRELOADER_ANIMATION_POSITION);
 			camera.position.copy(firstLoadStartPos.current);
 		}
 	}, []);
 
 	const animateInitialLoad = (delta, controls) => {
 		firstLoadTime.current += delta;
-		const rawT = Math.min(firstLoadTime.current / ANIMATION_DURATION_INITIAL, 1);
+		const rawT = Math.min(firstLoadTime.current / PRELOADER_ANIMATION_DURATION, 1);
 		const t = easeInOutQuad(rawT);
 
 		camera.position.lerpVectors(firstLoadStartPos.current, defaultPosition, t);
@@ -90,8 +91,8 @@ const DynamicCamera = ({
 				if (controls) {
 					controls.target.set(0, 0, 0);
 					applyFreeControlsSettings(controls)
-					controls.update();
 				}
+					controls.update();
 			}
 		}
 
@@ -210,7 +211,7 @@ const DynamicCamera = ({
 
 		if (firstLoadAnimation.current) {
 			animateInitialLoad(delta, controls);
-			return; // Прерываем остальную логику до окончания
+			return;
 		}
 
 		if (
