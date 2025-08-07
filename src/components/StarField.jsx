@@ -1,46 +1,55 @@
 import React, {useRef, useMemo} from 'react';
 import {useFrame} from '@react-three/fiber';
 
+const StarLayer = ({count, spread, size, rotationSpeed}) => {
+	const ref = useRef();
+
+	const positions = useMemo(() => {
+		const arr = new Float32Array(count * 3);
+		for (let i = 0; i < count; i++) {
+			arr[i * 3] = (Math.random() - 0.5) * spread;
+			arr[i * 3 + 1] = (Math.random() - 0.5) * spread;
+			arr[i * 3 + 2] = (Math.random() - 0.5) * spread;
+		}
+		return arr;
+	}, [count, spread]);
+
+	useFrame(() => {
+		if (ref.current){
+			ref.current.rotation.x += rotationSpeed;
+			ref.current.rotation.y += rotationSpeed * 0.7;
+		}
+	});
+
+	return (
+		<points ref={ref}>
+			<bufferGeometry>
+				<bufferAttribute
+					attach="attributes-position"
+					count={positions.length / 3}
+					array={positions}
+					itemSize={3}
+				/>
+			</bufferGeometry>
+			<pointsMaterial
+				color={0xffffff}
+				size={size}
+				sizeAttenuation={true}
+				transparent={true}
+				opacity={0.5}
+			/>
+		</points>
+	);
+};
+
 const StarField = () => {
-  const starFieldRef = useRef();
-  const starCount = 10000;
-  
-  const positions = useMemo(() => {
-    const positionsArray = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      positionsArray[i * 3] = (Math.random() - 0.5) * 1000;
-      positionsArray[i * 3 + 1] = (Math.random() - 0.5) * 1000;
-      positionsArray[i * 3 + 2] = (Math.random() - 0.5) * 1000;
-    }
-    return positionsArray;
-  }, [starCount]);
-
-  useFrame(() => {
-    if (starFieldRef.current){
-      starFieldRef.current.rotation.x += 0.001;
-      starFieldRef.current.rotation.y += 0.001;
-    }
-  });
-
-  return (
-    <points ref={starFieldRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={positions.length / 3}
-          array={positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        attach="material"
-        color={0xffffff}
-        size={0.1}
-        transparent={true}
-        opacity={0.7}
-      />
-    </points>
-  );
+	return (
+		<>
+			<StarLayer count={2000} spread={1600} size={1.6} rotationSpeed={-0.0012}/>
+			<StarLayer count={4000} spread={3000} size={2} rotationSpeed={0.0008}/>
+			<StarLayer count={6000} spread={6000} size={3} rotationSpeed={-0.0003}/>
+		</>
+	);
 };
 
 export default StarField;

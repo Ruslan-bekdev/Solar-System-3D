@@ -10,7 +10,10 @@ const ANIMATION_DURATION_FREE = 1.5;
 const MIN_POLAR_ANGLE = 0.1;
 const MAX_POLAR_ANGLE = Math.PI - 0.1;
 
+const ANIMATION_DURATION_INITIAL = 5;
+
 const easeOutQuad = t => t * (2 - t);
+const easeInOutQuad = t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
 
 const DynamicCamera = ({
 	                       targetRef,
@@ -30,6 +33,33 @@ const DynamicCamera = ({
 	const prevCameraMode = useRef(cameraMode);
 	const freeAnimStartPos = useRef(new THREE.Vector3());
 	const freeAnimStartTarget = useRef(new THREE.Vector3());
+
+	const firstLoadAnimation = useRef(true);
+	const firstLoadTime = useRef(0);
+	const firstLoadStartPos = useRef(new THREE.Vector3());
+
+	useEffect(() => {
+		if (firstLoadAnimation.current) {
+			firstLoadStartPos.current.set(0, 0, 4500);
+			camera.position.copy(firstLoadStartPos.current);
+		}
+	}, []);
+
+	const animateInitialLoad = (delta, controls) => {
+		firstLoadTime.current += delta;
+		const rawT = Math.min(firstLoadTime.current / ANIMATION_DURATION_INITIAL, 1);
+		const t = easeInOutQuad(rawT);
+
+		camera.position.lerpVectors(firstLoadStartPos.current, defaultPosition, t);
+		controls.target.lerpVectors(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, 0), t);
+
+		if (rawT >= 1) {
+			firstLoadAnimation.current = false;
+			camera.position.copy(defaultPosition);
+			controls.target.set(0, 0, 0);
+			controls.update();
+		}
+	};
 
 	useEffect(() => {
 		animationTime.current = 0;
@@ -177,6 +207,11 @@ const DynamicCamera = ({
 	useFrame((_, delta) => {
 		const controls = controlsRef.current;
 		if (!controls) return;
+
+		if (firstLoadAnimation.current) {
+			animateInitialLoad(delta, controls);
+			return; // Прерываем остальную логику до окончания
+		}
 
 		if (
 			cameraMode === CAMERA_MODES.FOCUS &&
