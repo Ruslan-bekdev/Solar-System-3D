@@ -23,6 +23,7 @@ const DynamicCamera = ({
 	                       defaultPosition,
 	                       lerpFactor = 0.05,
 	                       cameraMode,
+	                       isReady
                        }) => {
 	const {camera} = useThree();
 
@@ -35,16 +36,18 @@ const DynamicCamera = ({
 	const freeAnimStartPos = useRef(new THREE.Vector3());
 	const freeAnimStartTarget = useRef(new THREE.Vector3());
 
-	const firstLoadAnimation = useRef(true);
+	const firstLoadAnimation = useRef(false);
 	const firstLoadTime = useRef(0);
 	const firstLoadStartPos = useRef(new THREE.Vector3());
 
 	useEffect(() => {
-		if (firstLoadAnimation.current) {
+		if (!firstLoadAnimation.current && isReady) {
+			firstLoadAnimation.current = true;
+			firstLoadTime.current = 0;
 			firstLoadStartPos.current.set(0, 0, PRELOADER_ANIMATION_POSITION);
 			camera.position.copy(firstLoadStartPos.current);
 		}
-	}, []);
+	}, [isReady, camera]);
 
 	const animateInitialLoad = (delta, controls) => {
 		firstLoadTime.current += delta;
@@ -92,7 +95,7 @@ const DynamicCamera = ({
 					controls.target.set(0, 0, 0);
 					applyFreeControlsSettings(controls)
 				}
-					controls.update();
+				controls.update();
 			}
 		}
 

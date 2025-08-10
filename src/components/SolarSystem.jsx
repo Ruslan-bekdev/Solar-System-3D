@@ -1,11 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import * as THREE from "three";
 import {Canvas} from "@react-three/fiber";
 import Sun from "./Sun.jsx";
 import Planets from "./Planets.jsx";
 import StarField from "./StarField.jsx";
 import {OrbitControls} from "@react-three/drei";
-import DynamicCamera, {PRELOADER_ANIMATION_DURATION} from "./DynamicCamera.jsx";
+import DynamicCamera from "./DynamicCamera.jsx";
+import planets from '../configs/planets.json';
+import Prewarm from "./Prewarm.jsx";
+import LoaderScreen from "./LoaderScreen.jsx";
+import useTextureProgress from "../hooks/useTextureProgress.js";
 
 const SolarSystem = ({
 	                     shadows = true,
@@ -17,12 +21,24 @@ const SolarSystem = ({
 	                     cameraMode,
                      }) => {
 	const defaultCameraPos = new THREE.Vector3(0, 30, zoomDistance.distance);
-	const [isReady, setIsReady] = useState(false);
+	const [prewarmed, setPrewarmed] = useState(false);
+	const [showOverlay, setShowOverlay] = useState(true);
+	const [allLoaded, setAllLoaded] = useState(false);
+	const basePath = import.meta.env.BASE_URL;
+	const texturesToPreload = useMemo(() =>
+			Object.entries(planets).map(([i, planet]) => basePath + planet.texture.replace(/^\//, '')),
+		[planets, basePath]
+	);
+	const rocket = basePath + '/textures/rocket.png'.replace(/^\//, '');
+	const {progress} = useTextureProgress(texturesToPreload)
+
+	const onLoadedCallback = () => setAllLoaded(true);
 
 	useEffect(() => {
-		const timer = setTimeout(() => setIsReady(true), PRELOADER_ANIMATION_DURATION*250);
-		return () => clearTimeout(timer);
-	}, []);
+		if (prewarmed && allLoaded && progress === 100) {
+			setTimeout(() => setShowOverlay(false), 150);
+		}
+	}, [prewarmed, allLoaded, progress]);
 
 	useEffect(() => {
 		const handleWheel = (event) => {
@@ -42,37 +58,63 @@ const SolarSystem = ({
 	}, [zoomDistance, setZoomDistance, focusRef.ref]);
 
 	return (
-		<Canvas camera={{position: [0, 20, 60], fov: 60}} shadows>
-			<ambientLight intensity={shadows ? 0.05 : 1.0}/>
-			{shadows && (
-				<pointLight
-					position={[0, 0, 0]}
-					intensity={1000}
-					distance={200}
-					decay={2}
-					castShadow={true}
-					shadow-mapSize-width={2048}
-					shadow-mapSize-height={2048}
-				/>
-			)}
-			<Sun refCallback={(ref) => (planetRefs.current["Sun"] = ref)} shadows={shadows}/>
-			{isReady && (
-				<>
-					<Planets planetRefs={planetRefs} shadows={shadows} focusRefName={focusRef.name} cameraMode={cameraMode}/>
-				</>
-			)}
-			<StarField/>
-			<OrbitControls ref={controlsRef} makeDefault/>
+		<>
+			{showOverlay &&
+				<LoaderScreen rocket={rocket} progress={progress}/>
+			}
+			<Canvas camera={{position: [0, 20, 60], fov: 60}} shadows>
+				<ambientLight intensity={shadows ? 0.05 : 1.0}/>
+				{shadows && (
+					<pointLight
+						position={[0, 0, 0]}
+						intensity={1000}
+						distance={200}
+						decay={2}
+						castShadow={true}
+						shadow-mapSize-width={2048}
+						shadow-mapSize-height={2048}
+					/>
+				)}
+				<group visible={allLoaded && prewarmed}>
+					<Sun
+						refCallback={(ref) => (planetRefs.current["Sun"] = ref)}
+						shadows={shadows}
+					/>
+					<Planets
+						planetRefs={planetRefs}
+						shadows={shadows}
+						focusRefName={focusRef.name}
+						cameraMode={cameraMode}
+						onLoaded={onLoadedCallback}
+					/>
+					<StarField/>
+				</group>
 
-			<DynamicCamera
-				targetRef={focusRef.ref}
-				controlsRef={controlsRef}
-				zoomDistance={zoomDistance}
-				defaultPosition={defaultCameraPos}
-				lerpFactor={0.08}
-				cameraMode={cameraMode}
-			/>
-		</Canvas>
+				{!prewarmed && (
+					<Prewarm
+						textureUrls={texturesToPreload}
+						frames={3}
+						targetSize={16}
+						onDone={() => {
+							setPrewarmed(true);
+							setTimeout(()=>setShowOverlay(false), 150);
+						}}
+					/>
+				)}
+				<StarField/>
+				<OrbitControls ref={controlsRef} makeDefault/>
+
+				<DynamicCamera
+					targetRef={focusRef.ref}
+					controlsRef={controlsRef}
+					zoomDistance={zoomDistance}
+					defaultPosition={defaultCameraPos}
+					lerpFactor={0.08}
+					cameraMode={cameraMode}
+					isReady={!showOverlay}
+				/>
+			</Canvas>
+		</>
 	);
 };
 

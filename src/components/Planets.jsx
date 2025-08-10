@@ -8,19 +8,36 @@ import CAMERA_MODES from "../configs/cameraModes.js";
 
 export const ROTATION_SPEED = 0.01
 
-const Planet = ({planet, refCallback, shadows, initialAngle = 0, focusRefName, cameraMode}) => {
+const Planet = ({
+	                planet,
+	                refCallback,
+	                shadows,
+	                initialAngle = 0,
+	                focusRefName,
+	                cameraMode,
+	                onLoaded
+                }) => {
 	const {texture, speed, distance, radius, color, tilt, features, name} = planet;
 	const groupRef = useRef();
 	const rotationGroupRef = useRef();
 	const meshRef = useRef();
 	const basePath = import.meta.env.BASE_URL;
 	const planetTexture = useTexture(basePath + texture.replace(/^\//, ''));
-	const isFocused = focusRefName === name && cameraMode === CAMERA_MODES.FOCUS;
+	const isFocused = focusRefName === name || cameraMode === CAMERA_MODES.FREE;
+	const loadedRef = useRef(false);
 
 	useEffect(() => {
 		if (refCallback && meshRef.current) {
 			refCallback(meshRef.current);}
 	}, [refCallback]);
+
+	useEffect(() => {
+		if (!loadedRef.current && onLoaded && planetTexture && planetTexture.image) {
+			loadedRef.current = true;
+			onLoaded();
+		}
+	}, [onLoaded, planetTexture]);
+
 
 	useFrame(() => {
 		if (!meshRef.current || !groupRef.current || !rotationGroupRef.current) return;
@@ -121,7 +138,7 @@ const Planet = ({planet, refCallback, shadows, initialAngle = 0, focusRefName, c
 	);
 };
 
-const RenderPlanets = ({planetRefs, shadows, focusRefName, cameraMode}) => (
+const RenderPlanets = ({planetRefs, shadows, focusRefName, cameraMode, onLoaded}) => (
 	<>
 		{planetsConfig.map((planet, i) => (
 			<Planet
@@ -134,6 +151,7 @@ const RenderPlanets = ({planetRefs, shadows, focusRefName, cameraMode}) => (
 				}}
 				focusRefName={focusRefName}
 				cameraMode={cameraMode}
+				onLoaded={onLoaded}
 			/>
 		))}
 	</>
