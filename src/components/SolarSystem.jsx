@@ -8,8 +8,8 @@ import {OrbitControls} from "@react-three/drei";
 import DynamicCamera from "./DynamicCamera.jsx";
 import planets from '../configs/planets.json';
 import Prewarm from "./Prewarm.jsx";
-import LoaderScreen from "./LoaderScreen.jsx";
 import useTextureProgress from "../hooks/useTextureProgress.js";
+import LoaderScreen from "./loadingScreen/LoaderScreen.jsx";
 
 const SolarSystem = ({
 	                     shadows = true,
@@ -29,7 +29,6 @@ const SolarSystem = ({
 			Object.entries(planets).map(([i, planet]) => basePath + planet.texture.replace(/^\//, '')),
 		[planets, basePath]
 	);
-	const rocket = basePath + '/textures/rocket.png'.replace(/^\//, '');
 	const {progress} = useTextureProgress(texturesToPreload)
 
 	const onLoadedCallback = () => setAllLoaded(true);
@@ -60,7 +59,7 @@ const SolarSystem = ({
 	return (
 		<>
 			{showOverlay &&
-				<LoaderScreen rocket={rocket} progress={progress}/>
+				<LoaderScreen progress={progress}/>
 			}
 			<Canvas camera={{position: [0, 20, 60], fov: 60}} shadows>
 				<ambientLight intensity={shadows ? 0.05 : 1.0}/>

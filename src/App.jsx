@@ -1,7 +1,7 @@
 import './App.less';
 import React, {useState, useRef} from 'react';
 import SolarSystem from "./components/SolarSystem.jsx";
-import ControlPanel from "./components/ControlPanel.jsx";
+import ControlHint from "./components/controlHint/ControlHint.jsx";
 import defaultZoom from './configs/defaultZoom';
 import CAMERA_MODES from './configs/cameraModes';
 import useDisablePageZoom from "./hooks/useDisablePageZoom.js";
@@ -33,7 +33,7 @@ const App = () => {
 	return (
 		<>
 			<SolarSystem {...solarSystemProps}/>
-			<ControlPanel {...solarSystemProps}/>
+			<ControlHint {...solarSystemProps}/>
 		</>
 	)};
 

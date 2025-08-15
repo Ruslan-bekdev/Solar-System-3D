@@ -1,0 +1,117 @@
+.loaderScreen{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  z-index: 1000;
+
+  .spinnerBox{
+    width: 600px;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    position: relative;
+    z-index: 2000;
+
+    .whiteOrbitGroup{
+      position: absolute;
+      width: 120px;
+      aspect-ratio: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      isolation: isolate;
+
+      .whiteOrbit {
+        position: absolute;
+        width: 120px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        transform-style: preserve-3d;
+        animation: spin3D 10s linear infinite;
+        z-index: 2;
+      }
+
+      .fast {
+        transform: rotateX(25deg) rotateY(45deg);
+        animation: spin3D 3s linear infinite;
+      }
+      .medium {
+        transform: rotateX(10deg) rotateY(30deg);
+        animation: spin3D 5s linear infinite reverse;
+        animation-delay: -.6s;
+      }
+      .slow {
+        transform: rotateX(40deg) rotateY(20deg);
+        animation: spin3D 6s linear infinite;
+        animation-delay: -1.4s;
+      }
+
+
+      h2 {
+        position: absolute;
+        font-size: 1.6em;
+        z-index: 1;
+        color: aquamarine;
+        opacity: .4;
+      }
+    }
+
+    .leo{
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+    }
+
+    .blueOrbit, .greenOrbit, .redOrbit{
+      aspect-ratio: 1;
+      border: 1px solid #91daffa5;
+    }
+
+    .blueOrbit{
+      width: 325px;
+      -webkit-animation: spin3D 3s linear .2s infinite;
+    }
+
+    .greenOrbit{
+      width: 240px;
+      -webkit-animation: spin3D 2s linear 0s infinite;
+    }
+
+    .redOrbit{
+      width: 180px;
+      -webkit-animation: spin3D 1s linear 0s infinite;
+    }
+  }
+}
+
+@keyframes spin3D {
+  from {
+    transform: rotate3d(1, 1, 1, 0deg);
+  }
+  to {
+    transform: rotate3d(1, 1, 1, 360deg);
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: .25;
+    transform: scale(.75);
+  }
+}
