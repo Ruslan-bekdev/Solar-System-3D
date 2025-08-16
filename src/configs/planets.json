@@ -6,7 +6,7 @@
         "distance": 5,
         "speed": 0.25,
         "color": "#aaa9ad",
-        "tilt": 0.03,
+        "tilt": 0,
         "features":{
             "fastRotation": 2,
             "trail":{
@@ -57,11 +57,11 @@
                 "scale": 1.01,
                 "opacity": 0.4
             },
-            "satellite": {
+            "satellite (временно выключено)": {
                 "radiusMultiply": 2,
-                "scaleMultiply": 0.015,
-                "speed": 1,
-                "count": 15,
+                "scaleMultiply": 0.02,
+                "speed": 0.2,
+                "count": 9,
                 "glow":{
                     "intensity": 1,
                     "color": "#fff",

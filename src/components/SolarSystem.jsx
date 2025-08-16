@@ -100,7 +100,6 @@ const SolarSystem = ({
 						}}
 					/>
 				)}
-				<StarField/>
 				<OrbitControls ref={controlsRef} makeDefault/>
 
 				<DynamicCamera

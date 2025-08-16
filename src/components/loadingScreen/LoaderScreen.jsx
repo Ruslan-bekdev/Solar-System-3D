@@ -1,7 +1,16 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from './loadinScreen.module.less';
 
 const LoaderScreen = ({progress}) => {
+	const [preProgress, setPreProgress] = useState(0);
+	useEffect(() => {
+		const interval = setInterval(() =>
+				setPreProgress(prev => prev<99 ?prev+1 :prev),
+			20
+		);
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
 		<div className={styles.loaderScreen}>
 			<div className={styles.spinnerBox}>
@@ -18,7 +27,7 @@ const LoaderScreen = ({progress}) => {
 					<div className={`${styles.whiteOrbit} ${styles.fast}`}></div>
 					<div className={`${styles.whiteOrbit} ${styles.medium}`}></div>
 					<div className={`${styles.whiteOrbit} ${styles.slow}`}></div>
-					<h2>{progress}%</h2>
+					<h2>{progress < 99 ?preProgress :progress}%</h2>
 				</div>
 			</div>
 		</div>
