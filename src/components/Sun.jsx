@@ -64,7 +64,7 @@ const Sun = forwardRef(({refCallback, shadows}, ref) => {
             name={"Солнце"}
             ref={finalRef}
             castShadow={!shadows}
-            receiveShadow={shadows}
+            receiveShadow={false}
         >
             <sphereGeometry args={[2, 64, 64]} />
             <meshStandardMaterial

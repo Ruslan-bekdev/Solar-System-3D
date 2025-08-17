@@ -61,8 +61,12 @@ const SolarSystem = ({
 			{showOverlay &&
 				<LoaderScreen progress={progress}/>
 			}
-			<Canvas camera={{position: [0, 20, 60], fov: 60}} shadows>
-				<ambientLight intensity={shadows ? 0.05 : 1.0}/>
+			<Canvas
+				camera={{position: [0, 20, 60], fov: 60}}
+				shadows={{type: THREE.PCFShadowMap}}
+				gl={{antialias: true, powerPreference: "high-performance"}}
+			>
+				<ambientLight intensity={shadows ?0.05 :1.0}/>
 				{shadows && (
 					<pointLight
 						position={[0, 0, 0]}
@@ -70,8 +74,8 @@ const SolarSystem = ({
 						distance={200}
 						decay={2}
 						castShadow={true}
-						shadow-mapSize-width={2048}
-						shadow-mapSize-height={2048}
+						shadow-mapSize-width={512}
+						shadow-mapSize-height={512}
 					/>
 				)}
 				<group visible={allLoaded && prewarmed}>
