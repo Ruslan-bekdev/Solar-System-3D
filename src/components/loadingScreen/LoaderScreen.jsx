@@ -12,7 +12,7 @@ const LoaderScreen = ({progress}) => {
 	}, []);
 
 	return (
-		<div className={styles.loaderScreen}>
+		<section className={styles.loaderScreen} aria-label="Loading screen">
 			<div className={styles.spinnerBox}>
 				<div className={`${styles.blueOrbit} ${styles.leo}`}>
 				</div>
@@ -30,7 +30,7 @@ const LoaderScreen = ({progress}) => {
 					<h2>{progress < 99 ?preProgress :progress}%</h2>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 }
 

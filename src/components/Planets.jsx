@@ -11,7 +11,6 @@ export const ROTATION_SPEED = 0.01
 const Planet = ({
 	                planet,
 	                refCallback,
-	                shadows,
 	                initialAngle = 0,
 	                focusRefName,
 	                cameraMode,

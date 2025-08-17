@@ -6,7 +6,7 @@ import CAMERA_MODES from "../../configs/cameraModes.js";
 import defaultZoom from "../../configs/defaultZoom.json";
 
 const ControlHint = (props) => {
-	const {planetRefs, setFocusRef, setCameraMode, setZoomDistance, setShadows} = props;
+	const {planetRefs, setFocusRef, setCameraMode, setZoomDistance, setShadows, setDetailsPanelOpen} = props;
 	const [isHintVisible, setIsHintVisible] = useState(true);
 
 	useEffect(() => {
@@ -15,10 +15,6 @@ const ControlHint = (props) => {
 			const index = +key-1;
 
 			switch (key.toLowerCase()) {
-				case 'h':
-				case'р':
-					setIsHintVisible(prev => !prev);
-					break;
 				case '0':
 					setFocusRef({ref: null, name: ''});
 					setZoomDistance(defaultZoom);
@@ -31,11 +27,18 @@ const ControlHint = (props) => {
 				case '+':
 					setShadows(true);
 					break;
+				case 'i':
+				case 'ш':
+					setDetailsPanelOpen(prev => !prev);
+					break;
+				case 'h':
+				case'р':
+					setIsHintVisible(prev => !prev);
+					break;
 			}
 
 			if (!isNaN(index) && index >= 0 && index < planetsConfig.length) {
 				const planet = planetsConfig[index];
-				console.log(index,planetsConfig.length,planet)
 				if (!planet) return;
 				const mesh = planetRefs.current[planet.name];
 				if (!mesh) return;
@@ -54,10 +57,12 @@ const ControlHint = (props) => {
 	if (!isHintVisible) return null;
 
 	return (
-		<div className={styles.controlHint}>
+		<div className={styles.controlHint} role="note" aria-label="Подсказка по клавишам управления">
 			<p>
-				<strong>Клавиши управления:</strong><br/>
-				0 – свободно, 1–8 – планеты, - / + – тени, H – показать/скрыть подсказку
+				<strong>Клавиши: (H - показать/скрыть)</strong><br/>
+				0 - свободно, 1–8 - планеты, <br/>
+				- / + - тени,
+				I - информация
 			</p>
 		</div>
 	);
