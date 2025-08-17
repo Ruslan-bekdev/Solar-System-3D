@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from "react";
 import * as THREE from "three";
 import {useTexture} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
-import {Rings, Trail, GlowingAura, Atmosphere, Satellite, Glossiness} from './features';
+import {Rings, Trail, GlowingAura, Atmosphere, Glossiness} from './features';
 import planetsConfig from "../configs/planets.json";
 import CAMERA_MODES from "../configs/cameraModes.js";
 
@@ -80,8 +80,6 @@ const Planet = ({
 				<group ref={rotationGroupRef}>
 					<mesh
 						ref={meshRef}
-						castShadow={shadows}
-						receiveShadow={shadows}
 						scale={[radius, radius, radius]}
 					>
 						<sphereGeometry args={[1, 32, 32]} />
@@ -118,14 +116,6 @@ const Planet = ({
 					</mesh>
 				</group>
 
-				{features?.satellite &&(
-					<Satellite
-						satellite={features.satellite}
-						planetRadius={radius}
-						planetRef={meshRef}
-						isFocused={isFocused}
-					/>
-				)}
 				{features?.trail &&(
 					<Trail
 						trail={features.trail}

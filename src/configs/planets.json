@@ -11,7 +11,7 @@
             "fastRotation": 2,
             "trail":{
                 "color": "#FFCC99",
-                "width": 3.2,
+                "width": 2,
                 "length": 90,
                 "decay": 2
             }

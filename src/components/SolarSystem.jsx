@@ -74,8 +74,6 @@ const SolarSystem = ({
 						distance={200}
 						decay={2}
 						castShadow={true}
-						shadow-mapSize-width={512}
-						shadow-mapSize-height={512}
 					/>
 				)}
 				<group visible={allLoaded && prewarmed}>
