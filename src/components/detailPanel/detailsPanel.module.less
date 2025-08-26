@@ -1,0 +1,129 @@
+.detailsPanel {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  color: #fff;
+  text-align: center;
+
+  button {
+    position: absolute;
+    top: 2vh;
+    left: 2vw;
+    z-index: 9999;
+    padding: 1vh 2vw;
+    border: 0.15vw solid rgba(120, 180, 255, 0.3);
+    border-radius: 2vh;
+    background: rgba(255, 255, 255, 0.05);
+    color: aquamarine;
+    font-size: 2vh;
+    line-height: 3.75vh;
+    cursor: pointer;
+    backdrop-filter: blur(3vh) saturate(200%) brightness(1.2);
+    box-shadow: 0 0 3vh rgba(100,160,255,0.25);
+    pointer-events: auto;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #9cf;
+      box-shadow: 0 0 4vh rgba(120,180,255,0.25);
+    }
+  }
+
+  .panelContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 78vw;
+    height: 78vh;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.03);
+    border: 0.15vw solid #78b4ff33;
+    box-shadow: 0 0 4vh rgba(100,160,255,0.15);
+    backdrop-filter: blur(3vh) saturate(200%) brightness(1.3);
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    overflow: hidden;
+    border-radius: 2vh;
+
+    animation: fadeInScale 0.4s cubic-bezier(.25,.9,.25,1.3) forwards;
+
+    @keyframes fadeInScale {
+      from {
+        transform: translate(-50%, -50%) scaleX(0);
+        transform-origin: center;
+      }
+      to {
+        transform: translate(-50%, -50%) scaleX(1);
+      }
+    }
+
+    .bgPlanets {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(120,180,255,0.08), transparent 70%),
+      radial-gradient(circle at 30% 70%, rgba(255,120,220,0.05), transparent 60%);
+      pointer-events: none;
+    }
+
+    h2 {
+      font-size: 6vh;
+      text-align: center;
+      margin: 2vh 0;
+      text-shadow: 0 0 0.8vh rgba(120,160,255,0.45);
+    }
+
+    .scrollArea {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 2vw 2vh;
+      z-index: 1;
+
+      overscroll-behavior: contain;
+
+      scrollbar-width: thin;
+      scrollbar-color: #39f rgba(255,255,255,0.05);
+
+      &::-webkit-scrollbar {width: 1vw;}
+      &::-webkit-scrollbar-track {background: rgba(255,255,255,0.05); border-radius: 1vh; }
+      &::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #39f, #69f);
+        border-radius: 1vh;
+        box-shadow: 0 0 0.8vh rgba(100,160,255,0.4);
+        border: 0.2vw solid #05050ff2;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #5af, #8cf);
+      }
+
+      .glowDivider {
+        height: 0.5vh;
+        background: linear-gradient(90deg, transparent, #5af, transparent);
+        margin: 2vh 0;
+      }
+
+      .section {
+        margin-bottom: 3vh;
+
+        h3 {
+          font-size: 3.3vh;
+          margin-bottom: 1vh;
+          color: #9cf;
+          text-shadow: 0 0 0.6vh rgba(150,200,255,0.4);
+        }
+
+        p, ul {
+          font-size: 3vh;
+          line-height: 3.75vh;
+          color: #ddd;
+        }
+
+        ul li {
+          margin-bottom: 1vh;
+          list-style: none;
+        }
+      }
+    }
+  }
+}

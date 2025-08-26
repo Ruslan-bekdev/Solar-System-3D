@@ -1,0 +1,30 @@
+.marquee {
+  position: relative;
+  overflow: hidden;
+  height: 8vh;
+  background: rgba(255, 255, 255, 0.03); /* почти прозрачный лед */
+  border-top: 0.15vw solid rgba(120,180,255,0.2);
+  box-shadow: 0 0 3vh rgba(100,160,255,0.25);
+  backdrop-filter: blur(3vh) saturate(200%) brightness(1.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .marqueeContent {
+    display: flex;
+    gap: 2vw;
+    width: max-content;
+
+    .factCard {
+      background: rgba(255,255,255,0.05);
+      border: 0.1vw solid rgba(120,180,255,0.15);
+      border-radius: 1.5vh;
+      padding: 1vh 2vw;
+      font-size: 2vh;
+      color: aquamarine;
+      white-space: nowrap;
+      box-shadow: 0 0 2vh rgba(100,160,255,0.2);
+      backdrop-filter: blur(2vh);
+    }
+  }
+}
