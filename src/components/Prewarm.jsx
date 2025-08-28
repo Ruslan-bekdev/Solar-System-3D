@@ -2,12 +2,14 @@ import React, {useEffect} from 'react';
 import {useLoader, useThree} from '@react-three/fiber';
 import {TextureLoader, WebGLRenderTarget, LinearFilter, SRGBColorSpace} from 'three';
 
-const Prewarm = ({
-	                 textureUrls = [],
-	                 frames,
-	                 targetSize,
-	                 onDone = () => {}
-                 }) => {
+const Prewarm = (
+	{
+		textureUrls = [],
+		frames,
+		targetSize,
+		onDone = () => {}
+	}
+) => {
 	const textures = useLoader(TextureLoader, textureUrls.length ? textureUrls : []);
 	const {gl, scene, camera} = useThree();
 

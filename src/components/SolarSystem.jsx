@@ -11,15 +11,17 @@ import Prewarm from "./Prewarm.jsx";
 import useTextureProgress from "../hooks/useTextureProgress.js";
 import LoaderScreen from "./loadingScreen/LoaderScreen.jsx";
 
-const SolarSystem = ({
-	                     shadows = true,
-	                     planetRefs,
-	                     focusRef,
-	                     zoomDistance,
-	                     setZoomDistance,
-	                     controlsRef,
-	                     cameraMode,
-                     }) => {
+const SolarSystem = (
+	{
+		shadows = true,
+		planetRefs,
+		focusRef,
+		zoomDistance,
+		setZoomDistance,
+		controlsRef,
+		cameraMode,
+	}
+) => {
 	const defaultCameraPos = new THREE.Vector3(0, 30, zoomDistance.distance);
 	const [prewarmed, setPrewarmed] = useState(false);
 	const [showOverlay, setShowOverlay] = useState(true);

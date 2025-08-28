@@ -13,6 +13,7 @@ const App = () => {
 	const [focusRef, setFocusRef] = useState({ref: null, name: ''});
 	const [cameraMode, setCameraMode] = useState(CAMERA_MODES.FREE);
 	const [detailsPanelOpen, setDetailsPanelOpen] = useState(false);
+	const [isHintsVisible, setIsHintsVisible] = useState(true);
 
 	const planetRefs = useRef({});
 	const controlsRef = useRef();
@@ -29,7 +30,9 @@ const App = () => {
 		cameraMode,
 		setCameraMode,
 		detailsPanelOpen,
-		setDetailsPanelOpen
+		setDetailsPanelOpen,
+		isHintsVisible,
+		setIsHintsVisible
 	};
 
 	useDisablePageZoom(true);

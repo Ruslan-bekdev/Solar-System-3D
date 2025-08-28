@@ -127,7 +127,15 @@ const Planet = ({
 	);
 };
 
-const RenderPlanets = ({planetRefs, shadows, focusRefName, cameraMode, onLoaded}) => (
+const RenderPlanets = (
+	{
+		planetRefs,
+		shadows,
+		focusRefName,
+		cameraMode,
+		onLoaded
+	}
+) => (
 	<>
 		{planetsConfig.map((planet, i) => (
 			<Planet

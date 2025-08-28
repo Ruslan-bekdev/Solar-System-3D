@@ -1,14 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from './controlHint.module.less';
 import planetsConfig from '../../configs/planets.json';
 import zoomMap from "../../configs/zoomMap.json";
 import CAMERA_MODES from "../../configs/cameraModes.js";
 import defaultZoom from "../../configs/defaultZoom.json";
 
-const ControlHint = (props) => {
-	const {planetRefs, setFocusRef, setCameraMode, setZoomDistance, setShadows, setDetailsPanelOpen} = props;
-	const [isHintVisible, setIsHintVisible] = useState(true);
-
+const ControlHint = (
+	{
+		planetRefs,
+		setFocusRef,
+		setCameraMode,
+		setZoomDistance,
+		setShadows,
+		setDetailsPanelOpen,
+		isHintsVisible,
+		setIsHintsVisible
+	}
+) => {
 	useEffect(() => {
 		const onKeyDown = (event) => {
 			const {key} = event;
@@ -33,7 +41,7 @@ const ControlHint = (props) => {
 					break;
 				case 'h':
 				case'р':
-					setIsHintVisible(prev => !prev);
+					setIsHintsVisible(prev => !prev);
 					break;
 			}
 
@@ -54,15 +62,16 @@ const ControlHint = (props) => {
 		return () => window.removeEventListener('keydown', onKeyDown);
 	}, [planetRefs, setFocusRef, setCameraMode, setZoomDistance]);
 
-	if (!isHintVisible) return null;
+	if (!isHintsVisible) return null;
 
 	return (
 		<div className={styles.controlHint} role="note" aria-label="Подсказка по клавишам управления">
 			<p>
-				<strong>Клавиши: (H - показать/скрыть)</strong><br/>
+				<strong>Клавиши:</strong><br/>
 				0 - свободно, 1–8 - планеты, <br/>
 				- / + - тени,
-				I - информация
+				I - информация <br/>
+				H - показать/скрыть подсказки
 			</p>
 		</div>
 	);

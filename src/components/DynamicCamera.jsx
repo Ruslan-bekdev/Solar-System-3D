@@ -16,15 +16,17 @@ export const PRELOADER_ANIMATION_POSITION = 4500;
 const easeOutQuad = t => t * (2 - t);
 const easeInOutQuad = t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
 
-const DynamicCamera = ({
-	                       targetRef,
-	                       controlsRef,
-	                       zoomDistance,
-	                       defaultPosition,
-	                       lerpFactor = 0.05,
-	                       cameraMode,
-	                       isReady
-                       }) => {
+const DynamicCamera = (
+	{
+		targetRef,
+		controlsRef,
+		zoomDistance,
+		defaultPosition,
+		lerpFactor = 0.05,
+		cameraMode,
+		isReady
+	}
+) => {
 	const {camera} = useThree();
 
 	const targetPosition = useRef(new THREE.Vector3());

@@ -32,7 +32,14 @@ const sunContent = {
 	"nickname":"☀ сердце Солнечной системы"
 }
 
-const DetailsPanel = ({focusRef, detailsPanelOpen, setDetailsPanelOpen}) => {
+const DetailsPanel = (
+	{
+		focusRef,
+		detailsPanelOpen,
+		setDetailsPanelOpen,
+		isHintsVisible
+	}
+) => {
 	const toggleOpen = () => setDetailsPanelOpen(p => !p);
 	const displayName = focusRef.name || "Солнце";
 	const startsWithVowel = (text) => /^[аеёиоуыэюя]/i.test(text);
@@ -103,13 +110,13 @@ const DetailsPanel = ({focusRef, detailsPanelOpen, setDetailsPanelOpen}) => {
 
 	return (
 		<aside className={styles.detailsPanel}>
-			<button className={styles.panelToggleBtn} onClick={toggleOpen}>
+			{isHintsVisible && <button className={styles.panelToggleBtn} onClick={toggleOpen}>
 				{
 					detailsPanelOpen
-						?"Скрыть (I)"
-						:`Узнать ${startsWithVowel(displayName) ?"об" :"о"} ${name(displayName)} (I)`
+						? "Скрыть (I)"
+						: `Узнать ${startsWithVowel(displayName) ? "об" : "о"} ${name(displayName)} (I)`
 				}
-			</button>
+			</button>}
 
 			{detailsPanelOpen && (
 				<div className={styles.panelContent}>
