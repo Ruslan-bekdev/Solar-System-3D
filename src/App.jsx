@@ -6,6 +6,7 @@ import defaultZoom from './configs/defaultZoom';
 import CAMERA_MODES from './configs/cameraModes';
 import useDisablePageZoom from "./hooks/useDisablePageZoom.js";
 import DetailsPanel from "./components/detailPanel/DetailsPanel.jsx";
+import MobileControlPanel from "./components/mobileControlPanel/MobileControlPanel.jsx";
 
 const App = () => {
 	const [shadows, setShadows] = useState(true);
@@ -42,6 +43,7 @@ const App = () => {
 			<SolarSystem {...solarSystemProps}/>
 			<ControlHint {...solarSystemProps}/>
 			<DetailsPanel {...solarSystemProps}/>
+			<MobileControlPanel {...solarSystemProps}/>
 		</main>
 	)};
 

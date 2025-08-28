@@ -52,7 +52,6 @@ const DetailsPanel = (
 
 	useEffect(() => {
 		const planet = planets.find(planet => planet.name === focusRef.name);
-		console.log(planet)
 		setContent(planet !== undefined
 			?planet.content
 			:sunContent
@@ -113,8 +112,8 @@ const DetailsPanel = (
 			{isHintsVisible && <button className={styles.panelToggleBtn} onClick={toggleOpen}>
 				{
 					detailsPanelOpen
-						? "Скрыть (I)"
-						: `Узнать ${startsWithVowel(displayName) ? "об" : "о"} ${name(displayName)} (I)`
+						?"Скрыть (I)"
+						:`Узнать ${startsWithVowel(displayName) ?"об" :"о"} ${name(displayName)} (I)`
 				}
 			</button>}
 
@@ -163,13 +162,13 @@ const DetailsPanel = (
 
 									<div
 										className={`${styles.sectionContent} ${activeSection === section.title ?styles.open :""}`}>
-										{Array.isArray(section.text) ?(
-											<ul>
-												{section.text.map((it, i) => <li key={i}>{it}</li>)}
-											</ul>
-										) : (
-											<p>{section.text}</p>
-										)}
+										{
+											Array.isArray(section.text)
+												?<ul>
+													{section.text.map((it, i) => <li key={i}>{it}</li>)}
+												</ul>
+												: <p>{section.text}</p>
+										}
 									</div>
 								</div>
 							)
