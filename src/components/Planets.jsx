@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from "react";
 import * as THREE from "three";
 import {useTexture} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
-import {Rings, Trail, GlowingAura, Atmosphere, Glossiness} from './features';
+import {Rings, GlowingAura, Atmosphere, Glossiness} from './features';
 import planetsConfig from "../configs/planets.json";
 import CAMERA_MODES from "../configs/cameraModes.js";
 
@@ -114,14 +114,6 @@ const Planet = ({
 						)}
 					</mesh>
 				</group>
-
-				{features?.trail &&(
-					<Trail
-						trail={features.trail}
-						meshRef={meshRef}
-						isFocused={isFocused}
-					/>
-				)}
 			</group>
 		</group>
 	);

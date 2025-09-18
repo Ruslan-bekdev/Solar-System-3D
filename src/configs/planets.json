@@ -4,17 +4,11 @@
         "texture": "/textures/mercury.jpg",
         "radius": 0.1,
         "distance": 5,
-        "speed": 0.25,
+        "speed": 0.125,
         "color": "#aaa9ad",
         "tilt": 0,
         "features":{
-            "fastRotation": 2,
-            "trail":{
-                "color": "#FFCC99",
-                "width": 2,
-                "length": 90,
-                "decay": 2
-            }
+            "fastRotation": 2
         },
         "isFocused": "false",
         "content":{
@@ -53,7 +47,7 @@
         "texture": "/textures/venus.jpg",
         "radius": 0.13,
         "distance": 7,
-        "speed": 0.2,
+        "speed": 0.1,
         "color": "#c2b280",
         "tilt": 177.4,
         "features":{
@@ -107,7 +101,7 @@
         "texture": "/textures/earth.jpg",
         "radius": 0.14,
         "distance": 10,
-        "speed": 0.15,
+        "speed": 0.075,
         "color": "#2e6fce",
         "tilt": 23.44,
         "features":{
@@ -116,17 +110,6 @@
                 "speedMultiply": 0.5,
                 "scale": 1.01,
                 "opacity": 0.4
-            },
-            "satellite (временно выключено)":{
-                "radiusMultiply": 2,
-                "scaleMultiply": 0.02,
-                "speed": 0.2,
-                "count": 9,
-                "glow":{
-                    "intensity": 1,
-                    "color": "#fff",
-                    "distance": 0.01
-                }
             }
         },
         "isFocused": "false",
@@ -166,7 +149,7 @@
         "texture": "/textures/mars.jpg",
         "radius": 0.11,
         "distance": 13,
-        "speed": 0.125,
+        "speed": 0.0675,
         "color": "#b44b32",
         "tilt": 25.19,
         "features":{
@@ -225,7 +208,7 @@
         "texture": "/textures/jupiter.jpg",
         "radius": 0.6,
         "distance": 17,
-        "speed": 0.1,
+        "speed": 0.05,
         "color": "#d2b48c",
         "tilt": 3.3,
         "features":{
@@ -273,7 +256,7 @@
         "texture": "/textures/saturn.jpg",
         "radius": 0.3,
         "distance": 21,
-        "speed": 0.09,
+        "speed": 0.045,
         "color": "#f4e2c2",
         "tilt": 26.7,
         "features":{
@@ -323,7 +306,7 @@
         "texture": "/textures/uranus.jpg",
         "radius": 0.2,
         "distance": 25,
-        "speed": 0.075,
+        "speed": 0.0375,
         "color": "#b0e0e6",
         "tilt": 97.77,
         "features":{
@@ -373,7 +356,7 @@
         "texture": "/textures/neptune.jpg",
         "radius": 0.2,
         "distance": 29,
-        "speed": 0.065,
+        "speed": 0.0325,
         "color": "#4169e1",
         "tilt": 28.32,
         "features":{
