@@ -16,33 +16,26 @@
     text-align: center;
     position: relative;
     z-index: 9999;
-    border: 0.15vw solid rgba(120, 180, 255, 0.3);
+    border: 0.15vw solid #78B4FF4C;
     border-radius: 2vh;
-    background: rgba(255, 255, 255, 0.05);
+    background: #FFFFFF0C;
     color: aquamarine;
     font-size: 2vh;
     line-height: 3.75dvh;
     cursor: pointer;
-    backdrop-filter: blur(3vh) saturate(200%) brightness(1.2);
-    box-shadow: 0 0 3vh rgba(100,160,255,0.25);
     pointer-events: auto;
     transition: 0.2s ease-in-out;
     left: 2vw;
 
-    &:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #9cf;
-      box-shadow: 0 0 4vh rgba(120,180,255,0.25);
-    }
     &.hintsToggleBtn{
       position: absolute;
       bottom: 2dvh;
       left: 2vw;
+
       &.hidden{
         opacity: 0.2;
       }
     }
-
   }
 
   .planetFocusCounter {
@@ -51,17 +44,15 @@
     position: relative;
     left: 2vw;
     text-align: center;
-    border: 0.15vw solid rgba(120, 180, 255, 0.3);
+    border: 0.15vw solid #78B4FF4C;
     border-radius: 2vh;
-    background: rgba(255, 255, 255, 0.05);
+    background: #FFFFFF0C;
     color: aquamarine;
     font-size: 2vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    backdrop-filter: blur(3vh) saturate(200%) brightness(1.2);
-    box-shadow: 0 0 3vh rgba(100,160,255,0.25);
     transition: 0.2s ease-in-out;
     user-select: none;
 
@@ -76,22 +67,7 @@
       font-size: 3.2vh;
       cursor: pointer;
 
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: #9cf;
-        box-shadow: 0 0 4vh rgba(120,180,255,0.25);
-      }
-
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 4vh rgba(120,180,255,0.5);
-      }
-        border-bottom: 0.15vw solid rgba(120, 180, 255, 0.1);
-        border-radius: 2vh 2vh 0 0;
-
       &.counterStepDown{
-        border-bottom: 0.15vw solid rgba(120, 180, 255, 0.1);
-        border-radius: 2vh 2vh 0 0;
         transform: rotate(180deg);
       }
     }
