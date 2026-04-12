@@ -2,7 +2,7 @@ import './App.less';
 import React, {useState, useRef} from 'react';
 import SolarSystem from "./components/SolarSystem.jsx";
 import ControlHint from "./components/controlHint/ControlHint.jsx";
-import defaultZoom from './configs/defaultZoom';
+import {defaultZoom} from './configs/zoom.js';
 import CAMERA_MODES from './configs/cameraModes';
 import useDisablePageZoom from "./hooks/useDisablePageZoom.js";
 import DetailsPanel from "./components/detailPanel/DetailsPanel.jsx";

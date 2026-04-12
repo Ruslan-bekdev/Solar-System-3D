@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import styles from './controlHint.module.less';
-import planetsConfig from '../../configs/planets.json';
-import zoomMap from "../../configs/zoomMap.json";
+import planetsConfig from '../../configs/planets_en.json';
+import {zoomMap} from "../../configs/zoom.js";
 import CAMERA_MODES from "../../configs/cameraModes.js";
-import defaultZoom from "../../configs/defaultZoom.json";
+import {defaultZoom} from "../../configs/zoom.js";
 
 const ControlHint = (
 	{
@@ -62,17 +62,18 @@ const ControlHint = (
 		return () => window.removeEventListener('keydown', onKeyDown);
 	}, [planetRefs, setFocusRef, setCameraMode, setZoomDistance]);
 
-	if (!isHintsVisible) return null;
-
 	return (
 		<div className={styles.controlHint} role="note" aria-label="Подсказка по клавишам управления">
-			<p>
-				<strong>Клавиши:</strong><br/>
-				0 - свободно, 1–8 - планеты, <br/>
-				- / + - тени,
-				I - информация <br/>
-				H - показать/скрыть подсказки
-			</p>
+			{isHintsVisible
+				?<p>
+					<strong>Controls:</strong><br/>
+					0 - Free View, 1–8 - Planets, <br/>
+					- / + - Shadows,
+					I - Info <br/>
+					H - Hide Hints
+				</p>
+				:<p>H - Hints</p>
+			}
 		</div>
 	);
 };

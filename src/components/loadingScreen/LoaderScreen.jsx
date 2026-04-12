@@ -5,8 +5,8 @@ const LoaderScreen = ({progress}) => {
 	const [preProgress, setPreProgress] = useState(0);
 	useEffect(() => {
 		const interval = setInterval(() =>
-				setPreProgress(prev => prev<99 ?prev+1 :prev),
-			20
+				setPreProgress(prev => Math.min(prev+1,99)),
+			1
 		);
 		return () => clearInterval(interval);
 	}, []);
@@ -27,7 +27,7 @@ const LoaderScreen = ({progress}) => {
 					<div className={`${styles.whiteOrbit} ${styles.fast}`}></div>
 					<div className={`${styles.whiteOrbit} ${styles.medium}`}></div>
 					<div className={`${styles.whiteOrbit} ${styles.slow}`}></div>
-					<h2>{progress < 99 ?preProgress :progress}%</h2>
+					<h2>{Math.max(progress,preProgress)}%</h2>
 				</div>
 			</div>
 		</section>

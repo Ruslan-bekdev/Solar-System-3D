@@ -1,0 +1,407 @@
+[
+    {
+        "name": "Mercury",
+        "texture": "/textures/mercury.jpg",
+        "radius": 0.1,
+        "distance": 5,
+        "speed": 0.125,
+        "color": "#aaa9ad",
+        "tilt": 0,
+        "features":{
+            "fastRotation": 2
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Mercury is the smallest planet in the Solar System and the closest to the Sun. Its cratered surface closely resembles the Moon, while its high density makes it the second densest planet after Earth."
+                },
+                {
+                    "title": "History of Exploration",
+                    "text": "The first detailed images were captured by Mariner 10 in 1974. In 2004, the MESSENGER mission was launched, operating until 2015. In 2018, ESA and JAXA launched BepiColombo, which is scheduled to enter orbit in 2025."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "Temperatures range from -180°C at night to +430°C during the day",
+                        "A year lasts only 88 Earth days",
+                        "A solar day is equal to 176 Earth days"
+                    ]
+                },
+                {
+                    "title": "Unique Features",
+                    "text": "Due to its proximity to the Sun, Mercury is difficult to study from Earth. Its orbit and rotation create a unique 3:2 spin-orbit resonance: the planet completes three rotations on its axis for every two orbits around the Sun."
+                }
+            ],
+            "marquee": [
+                "Smallest planet in the system",
+                "A day is longer than a year",
+                "Extreme temperature fluctuations"
+            ],
+            "nickname": "☿ The Winged Messenger"
+        }
+    },
+    {
+        "name": "Venus",
+        "texture": "/textures/venus.jpg",
+        "radius": 0.13,
+        "distance": 7,
+        "speed": 0.1,
+        "color": "#c2b280",
+        "tilt": 177.4,
+        "features":{
+            "glow":{
+                "intensity": 1.2,
+                "color": "#fff5cc"
+            },
+            "glowingAura":{
+                "color": "#ff3300",
+                "scale": 8.2,
+                "pulseSpeed": 4,
+                "isAuraHide": false,
+                "auraPulseScale": 0.02,
+                "auraOpacity": {"base": 0.4, "pulse": 0.1}
+            }
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Venus is the second planet from the Sun and Earth's near-twin in size. Its thick atmosphere traps heat and creates crushing pressure, turning the surface into a hellish desert."
+                },
+                {
+                    "title": "Exploration History",
+                    "text": "In 1970, Venera 7 performed the first soft landing. In the 21st century, its atmosphere was studied by ESA's Venus Express and Japan's Akatsuki."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "Surface temperature reaches 470°C",
+                        "Atmosphere: 96% CO₂",
+                        "Pressure: 90x higher than Earth's"
+                    ]
+                },
+                {
+                    "title": "Key Features",
+                    "text": "Venus rotates retrogradely (backwards). Its brilliance makes it visible as the iconic 'Morning Star' or 'Evening Star'."
+                }
+            ],
+            "marquee": [
+                "The hottest planet in the system",
+                "Ocean-depth atmospheric pressure",
+                "Brightest object in the night sky"
+            ],
+            "nickname": "♀ Earth's Hellish Twin"
+        }
+    },
+    {
+        "name": "Earth",
+        "texture": "/textures/earth.jpg",
+        "radius": 0.14,
+        "distance": 10,
+        "speed": 0.075,
+        "color": "#2e6fce",
+        "tilt": 23.44,
+        "features":{
+            "atmosphere":{
+                "texture": "/textures/earth_clouds.jpg",
+                "speedMultiply": 0.5,
+                "scale": 1.01,
+                "opacity": 0.4
+            }
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Earth is the third planet from the Sun and the only known world to harbor life. It features vast oceans, a protective atmosphere, and active geology."
+                },
+                {
+                    "title": "Exploration History",
+                    "text": "The first space-based images were captured in 1946. Later, the Apollo program famously revealed the planet from afar as the 'Blue Marble'."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "71% water-covered surface",
+                        "Diameter: 12,742 km",
+                        "Natural satellite: The Moon"
+                    ]
+                },
+                {
+                    "title": "Key Features",
+                    "text": "A robust magnetic field and atmosphere shield Earth from cosmic radiation, maintaining the delicate conditions necessary for life."
+                }
+            ],
+            "marquee": [
+                "The only planet with life",
+                "Oceans and continents drive climate",
+                "Moon-driven tidal cycles"
+            ],
+            "nickname": "🌍 The Living Cradle"
+        }
+    },
+    {
+        "name": "Mars",
+        "texture": "/textures/mars.jpg",
+        "radius": 0.11,
+        "distance": 13,
+        "speed": 0.0675,
+        "color": "#b44b32",
+        "tilt": 25.19,
+        "features":{
+            "glowingAura":{
+                "color": "#ff8844",
+                "scale": 9.3,
+                "pulseSpeed": 2.5,
+                "isAuraHide": false,
+                "auraPulseScale": 0.015,
+                "auraOpacity": {
+                    "base": 0.12,
+                    "pulse": 0.05
+                }
+            },
+            "atmosphere":{
+                "texture": "/textures/mars_dust.jpg",
+                "speedMultiply": 0.5,
+                "scale": 1.01,
+                "opacity": 0.25
+            }
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Mars is the fourth planet from the Sun, famously known as the Red Planet due to the prevalence of iron oxide. Its thin atmosphere is primarily composed of carbon dioxide."
+                },
+                {
+                    "title": "Exploration History",
+                    "text": "Telescopic observations began in the 17th century. Modern exploration was marked by the Viking missions (1975) and Mars Pathfinder (1997), followed by the Spirit, Opportunity, Curiosity, and Perseverance rovers."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "Home to Olympus Mons, a 21km high volcano",
+                        "A Martian day (Sol) lasts 24 hours 37 minutes",
+                        "Polar ice caps consist of water and dry ice"
+                    ]
+                },
+                {
+                    "title": "Key Features",
+                    "text": "Mars experiences seasons similar to Earth's, though they last twice as long. The presence of sub-surface ice makes it the prime candidate for future colonization."
+                }
+            ],
+            "marquee": [
+                "The Red Planet with frozen poles",
+                "Olympus Mons is thrice the height of Everest",
+                "Days nearly identical to Earth's"
+            ],
+            "nickname": "♂ The Red Warrior"
+        }
+    },
+    {
+        "name": "Jupiter",
+        "texture": "/textures/jupiter.jpg",
+        "radius": 0.6,
+        "distance": 17,
+        "speed": 0.05,
+        "color": "#d2b48c",
+        "tilt": 3.3,
+        "features":{
+            "atmosphere":{
+                "texture": "/textures/jupiter.jpg",
+                "speedMultiply": -0.4,
+                "scale": 1.01,
+                "opacity": 0.4
+            }
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Jupiter is the fifth planet from the Sun and the Solar System's largest gas giant. Its atmosphere consists primarily of hydrogen and helium, with iconic cloud bands driven by massive storms."
+                },
+                {
+                    "title": "Exploration History",
+                    "text": "In 1610, Galileo discovered its largest moons. Since then, Jupiter has been explored by the Pioneer and Voyager flybys, the Galileo orbiter, and the ongoing Juno mission."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "Diameter: approximately 143,000 km",
+                        "95 moons, with Ganymede being the largest",
+                        "The Great Red Spot: a storm raging for over 300 years"
+                    ]
+                },
+                {
+                    "title": "Key Features",
+                    "text": "Jupiter's immense gravity shapes the orbits of asteroids and acts as a cosmic shield, protecting the inner planets from potential impacts."
+                }
+            ],
+            "marquee": [
+                "The Solar System's largest gas giant",
+                "Ganymede is larger than Mercury",
+                "A storm that has lasted for centuries"
+            ],
+            "nickname": "♃ The Sentinel Giant"
+        }
+    },
+    {
+        "name": "",
+        "texture": "/textures/saturn.jpg",
+        "radius": 0.3,
+        "distance": 21,
+        "speed": 0.045,
+        "color": "#f4e2c2",
+        "tilt": 26.7,
+        "features":{
+            "ring":{
+                "texture": "/textures/saturn_rings.png",
+                "tiltDeg": 7,
+                "innerFactor": 1.45,
+                "outerFactor": 2.6,
+                "opacity": 0.9,
+                "segments": 128
+            }
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Saturn is the sixth planet from the Sun and the second-largest gas giant. It is world-renowned for its extensive ring system, composed of billions of ice and rock particles."
+                },
+                {
+                    "title": "Exploration History",
+                    "text": "Telescopic study began in the 17th century. In the late 20th century, Pioneer and Voyager revealed ring details, followed by the Cassini mission (2004–2017), which provided deep insights into the planet and its moons."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "Diameter: approximately 120,500 km",
+                        "82 confirmed moons",
+                        "Rings span hundreds of thousands of kilometers"
+                    ]
+                },
+                {
+                    "title": "Key Features",
+                    "text": "Its rings make Saturn the most recognizable planet. Its largest moon, Titan, is unique for having a dense, Earth-like atmosphere."
+                }
+            ],
+            "marquee": [
+                "The Lord of the radiant rings",
+                "Titan: A world with its own atmosphere",
+                "Visible even through small telescopes"
+            ],
+            "nickname": "♄ The Lord of the Rings"
+        }
+    },
+    {
+        "name": "Uranus",
+        "texture": "/textures/uranus.jpg",
+        "radius": 0.2,
+        "distance": 25,
+        "speed": 0.0375,
+        "color": "#b0e0e6",
+        "tilt": 97.77,
+        "features":{
+            "ring":{
+                "texture": "/textures/uranus_rings.png",
+                "tiltDeg": 7,
+                "innerFactor": 0.45,
+                "outerFactor": 2.6,
+                "opacity": 0.9,
+                "segments": 128
+            }
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Uranus is the seventh planet from the Sun and an ice giant with a unique axial tilt of nearly 98°. This causes the planet to rotate virtually on its side."
+                },
+                {
+                    "title": "Exploration History",
+                    "text": "Discovered in 1781 by William Herschel. In 1986, Voyager 2 became the only spacecraft to ever visit and perform a close study of the planet."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "Axial tilt is nearly parallel to its orbital plane",
+                        "27 moons and 13 faint rings",
+                        "Methane in the atmosphere creates its signature turquoise hue"
+                    ]
+                },
+                {
+                    "title": "Key Features",
+                    "text": "Due to its extreme tilt, seasons last for decades: a single summer or winter can persist for 42 Earth years."
+                }
+            ],
+            "marquee": [
+                "The planet that rotates on its side",
+                "Turquoise color driven by methane",
+                "Seasons that last 42 years"
+            ],
+            "nickname": "♅ The Tilted Giant"
+        }
+    },
+    {
+        "name": "Neptune",
+        "texture": "/textures/neptune.jpg",
+        "radius": 0.2,
+        "distance": 29,
+        "speed": 0.0325,
+        "color": "#4169e1",
+        "tilt": 28.32,
+        "features":{
+            "fluidLike":{
+                "wiggleAmplitude": 0.01,
+                "wiggleFrequency": 3,
+                "floatAmplitude": 0.04,
+                "floatFrequencyX": 5,
+                "floatFrequencyY": 4
+            },
+            "glossiness":{
+                "metalness": 0.3,
+                "roughness": 0.5
+            }
+        },
+        "isFocused": "false",
+        "content": {
+            "sections": [
+                {
+                    "title": "Overview",
+                    "text": "Neptune is the eighth planet from the Sun, a gas giant distinguished by its deep blue color. Its atmosphere is home to the most powerful winds in the Solar System."
+                },
+                {
+                    "title": "Exploration History",
+                    "text": "Discovered in 1846 by Le Verrier and Galle. In 1989, Voyager 2 performed its final flyby, providing the first close-up images of this distant world."
+                },
+                {
+                    "title": "Quick Facts",
+                    "text": [
+                        "Winds reach speeds of up to 2,100 km/h",
+                        "14 moons, with Triton being the largest",
+                        "Methane absorption gives the atmosphere its blue hue"
+                    ]
+                },
+                {
+                    "title": "Key Features",
+                    "text": "Located at the edge of the Solar System, Neptune's gravity significantly influences the movement of objects within the Kuiper Belt."
+                }
+            ],
+            "marquee": [
+                "The blue sentinel of the outer system",
+                "Supersonic winds faster than sound",
+                "Triton moves in a retrograde orbit"
+            ],
+            "nickname": "♆ The Wind-Swept Guardian"
+        }
+    }
+]

@@ -1,35 +1,35 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from "./detailsPanel.module.less";
 import DetailsMarquee from "../marquee/DetailsMarquee.jsx";
-import planets from "../../configs/planets.json";
+import planets from "../../configs/planets_en.json";
 
 const sunContent = {
-	"sections":[
+	"sections": [
 		{
-			"title":"Описание",
-			"text":"Солнце — звезда спектрального класса G2V, вокруг которой обращаются все планеты нашей системы. Оно обеспечивает свет и тепло, без которых жизнь на Земле невозможна."
+			"title": "Overview",
+			"text": "The Sun is a G2V-type main-sequence star at the center of our Solar System. Its immense gravitational pull keeps all planets in orbit, providing the essential light and thermal energy that sustains life on Earth."
 		},
 		{
-			"title":"Факты",
-			"text":[
-				"Температура поверхности ~5 500 °C",
-				"Температура ядра ~15 000 000 °C",
-				"Диаметр ~1,392 млн км",
-				"Свет доходит до Земли за ~8 мин 20 сек",
-				"Состав: ~74% водород, ~24% гелий"
+			"title": "Quick Facts",
+			"text": [
+				"Surface temperature: ~5,500 °C",
+				"Core temperature: ~15,000,000 °C",
+				"Diameter: ~1.392 million km",
+				"Light travel time to Earth: ~8 min 20 sec",
+				"Composition: ~74% Hydrogen, ~24% Helium"
 			]
 		},
 		{
-			"title":"Особенности",
-			"text":"Солнце — огромный шар плазмы с постоянными ядерными реакциями. Его магнитная активность вызывает солнечные вспышки и полярные сияния на Земле."
+			"title": "Characteristics",
+			"text": "Composed of hot plasma, the Sun is driven by nuclear fusion. Its complex magnetic activity generates solar flares and solar winds, which are responsible for auroras and geomagnetic events on Earth."
 		}
 	],
-	"marquee":[
-		"Самый яркий объект на небе",
-		"Источник энергии и жизни",
-		"Солнечные вспышки и бури"
+	"marquee": [
+		"The brightest celestial object",
+		"Primary source of energy and life",
+		"Solar flares and magnetic storms"
 	],
-	"nickname":"☀ сердце Солнечной системы"
+	"nickname": "☀ Heart of the Solar System"
 }
 
 const DetailsPanel = (
@@ -41,14 +41,14 @@ const DetailsPanel = (
 	}
 ) => {
 	const toggleOpen = () => setDetailsPanelOpen(p => !p);
-	const displayName = focusRef.name || "Солнце";
-	const startsWithVowel = (text) => /^[аеёиоуыэюя]/i.test(text);
+	const displayName = focusRef.name || "Sun";
 	const [content, setContent] = useState(null);
-	const name = (name) => {
-		if (/й$/i.test(name)) return name.slice(0, -1) + "и";
-		if (/[аеёиоуыэюя]$/i.test(name)) return name.slice(0, -1) + "е";
-		return name + "е";
-	};
+	// const startsWithVowel = (text) => /^[аеёиоуыэюя]/i.test(text);
+	// const name = (name) => {
+	// 	if (/й$/i.test(name)) return name.slice(0, -1) + "и";
+	// 	if (/[аеёиоуыэюя]$/i.test(name)) return name.slice(0, -1) + "е";
+	// 	return name + "е";
+	// };
 
 	useEffect(() => {
 		const planet = planets.find(planet => planet.name === focusRef.name);
@@ -112,8 +112,9 @@ const DetailsPanel = (
 			{isHintsVisible && <button className={styles.panelToggleBtn} onClick={toggleOpen}>
 				{
 					detailsPanelOpen
-						?"Скрыть (I)"
-						:`Узнать ${startsWithVowel(displayName) ?"об" :"о"} ${name(displayName)} (I)`
+						?"Hide (I)"
+						// :`Узнать ${startsWithVowel(displayName) ?"об" :"о"} ${name(displayName)} (I)`
+						:`Learn more about ${displayName} (I)`
 				}
 			</button>}
 

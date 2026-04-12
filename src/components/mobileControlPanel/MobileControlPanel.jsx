@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import styles from './mobileControlPanel.module.less';
-import planetsConfig from '../../configs/planets.json';
-import zoomMap from "../../configs/zoomMap.json";
+import planetsConfig from '../../configs/planets_en.json';
+import {zoomMap} from "../../configs/zoom.js";
 import CAMERA_MODES from "../../configs/cameraModes.js";
-import defaultZoom from "../../configs/defaultZoom.json";
+import {defaultZoom} from "../../configs/zoom.js";
 
 const MobileControlPanel = (
 	{

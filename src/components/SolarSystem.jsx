@@ -6,7 +6,7 @@ import Planets from "./Planets.jsx";
 import StarField from "./StarField.jsx";
 import {OrbitControls} from "@react-three/drei";
 import DynamicCamera from "./DynamicCamera.jsx";
-import planets from '../configs/planets.json';
+import planets from '../configs/planets_en.json';
 import Prewarm from "./Prewarm.jsx";
 import useTextureProgress from "../hooks/useTextureProgress.js";
 import LoaderScreen from "./loadingScreen/LoaderScreen.jsx";

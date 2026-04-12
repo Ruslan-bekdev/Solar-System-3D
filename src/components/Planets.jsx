@@ -3,7 +3,7 @@ import * as THREE from "three";
 import {useTexture} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
 import {Rings, GlowingAura, Atmosphere, Glossiness} from './features';
-import planetsConfig from "../configs/planets.json";
+import planetsConfig from "../configs/planets_en.json";
 import CAMERA_MODES from "../configs/cameraModes.js";
 
 export const ROTATION_SPEED = 0.01
