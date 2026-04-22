@@ -28,8 +28,7 @@ const SolarSystem = (
 	const [allLoaded, setAllLoaded] = useState(false);
 	const basePath = import.meta.env.BASE_URL;
 	const texturesToPreload = useMemo(() =>
-			Object.entries(planets).map(([i, planet]) => basePath + planet.texture.replace(/^\//, '')),
-		[planets, basePath]
+			planets.map(planet => basePath + planet.texture.replace(/^\//, '')), [basePath]
 	);
 	const {progress} = useTextureProgress(texturesToPreload)
 

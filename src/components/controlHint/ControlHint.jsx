@@ -60,7 +60,7 @@ const ControlHint = (
 
 		window.addEventListener('keydown', onKeyDown);
 		return () => window.removeEventListener('keydown', onKeyDown);
-	}, [planetRefs, setFocusRef, setCameraMode, setZoomDistance]);
+	}, [planetRefs, setFocusRef, setCameraMode, setZoomDistance, setShadows, setIsHintsVisible, setDetailsPanelOpen]);
 
 	return (
 		<div className={styles.controlHint} role="note" aria-label="Подсказка по клавишам управления">

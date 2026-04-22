@@ -1,12 +1,25 @@
-# React + Vite
+# Solar System 3D
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive 3D model of our solar system built with **React Three Fiber**.
 
-Currently, two official plugins are available:
+## [Live Demo](https://ruslan-bekdev.github.io/Solar-System-3D/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies
+* **React 18** + **Vite**
+* **Three.js** / **React Three Fiber** (R3F)
+* **React Three Drei** (for controls and helpers)
 
-## Expanding the ESLint configuration
+## Challenges & Optimization
+The main challenge was performance. High-resolution textures and complex 3D objects initially caused lags.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**What I did to make it better:**
+* **Texture Prewarming:** Added a script to pre-load textures to the GPU. It helped a lot with smooth camera movement.
+* **Optimization:** Adjusted shadows and light intensity to keep FPS stable even on mid-range laptops.
+* **Navigation:** Built a focus system so you can "teleport" to planets using 1-8 keys.
+
+*Note: There are still some minor lags during fast transitions, which I plan to fix by switching to compressed texture formats in the future.*
+
+## How to run locally
+1. `git clone https://github.com/Ruslan-bekdev/Solar-System-3D.git`
+2. `npm install`
+3. `npm run dev`

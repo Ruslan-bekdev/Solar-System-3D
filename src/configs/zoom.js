@@ -1,13 +1,13 @@
 export const zoomMap = {
-    "Солнце": {"distance": 8, "min": 4, "max": 16},
-    "Меркурий": {"distance": 1, "min": 0.5, "max": 2.5},
-    "Венера": {"distance": 1.25, "min": 0.6, "max": 3},
-    "Земля": {"distance": 1.5, "min": 0.55, "max": 3.5},
-    "Марс": {"distance": 1.4, "min": 0.5, "max": 3},
-    "Юпитер": {"distance": 3, "min": 1.75, "max": 6},
-    "Сатурн": {"distance": 2.75, "min": 1, "max": 5.5},
-    "Уран": {"distance": 2, "min": 0.7, "max": 4},
-    "Нептун": {"distance": 2, "min": 0.7, "max": 4}
+    "Sun": {"distance": 8, "min": 4, "max": 16},
+    "Mercury": {"distance": 1, "min": 0.5, "max": 2.5},
+    "Venus": {"distance": 1.25, "min": 0.6, "max": 3},
+    "Earth": {"distance": 1.5, "min": 0.55, "max": 3.5},
+    "Mars": {"distance": 1.4, "min": 0.5, "max": 3},
+    "Jupiter": {"distance": 3, "min": 1.75, "max": 6},
+    "Saturn": {"distance": 2.75, "min": 1, "max": 5.5},
+    "Uranus": {"distance": 2, "min": 0.7, "max": 4},
+    "Neptune": {"distance": 2, "min": 0.7, "max": 4}
 };
 
 export const defaultZoom = {
